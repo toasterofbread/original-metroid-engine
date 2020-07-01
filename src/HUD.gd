@@ -83,10 +83,7 @@ func set_amount(value, amount):
 	for child in node.get_children():
 		child.frame = int(amount[count])
 		count += 1
-		
-func get_amount(type):
-	return
-		
+
 func select_weapon(weapon):
 	
 	for icon in Array(weaponNodes.keys()):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=2]
+[gd_scene load_steps=160 format=2]
 
 [ext_resource path="res://assets/samus/Turn around (standing)/3.png" type="Texture" id=1]
 [ext_resource path="res://src/entities/Samus.gd" type="Script" id=2]
@@ -22,8 +22,8 @@
 [ext_resource path="res://assets/samus/death/L 03.png" type="Texture" id=20]
 [ext_resource path="res://assets/samus/death/L 00.png" type="Texture" id=21]
 [ext_resource path="res://src/flash_white.shader" type="Shader" id=22]
-[ext_resource path="res://assets/samus/aim up run/04.png" type="Texture" id=23]
-[ext_resource path="res://assets/samus/risefall/fall 1.png" type="Texture" id=24]
+[ext_resource path="res://assets/samus/aim up run/right/04.png" type="Texture" id=23]
+[ext_resource path="res://assets/samus/risefall/right/fall 1.png" type="Texture" id=24]
 [ext_resource path="res://assets/samus/risefall/fall 3.png" type="Texture" id=25]
 [ext_resource path="res://assets/samus/risefall/fall 2.png" type="Texture" id=26]
 [ext_resource path="res://assets/samus/risefall/fall 5.png" type="Texture" id=27]
@@ -35,14 +35,14 @@
 [ext_resource path="res://assets/samus/aim up run/01.png" type="Texture" id=33]
 [ext_resource path="res://assets/samus/aim up run/02.png" type="Texture" id=34]
 [ext_resource path="res://assets/samus/aim up run/05.png" type="Texture" id=35]
-[ext_resource path="res://assets/samus/aim up run/06.png" type="Texture" id=36]
+[ext_resource path="res://assets/samus/aim up run/right/10.png" type="Texture" id=36]
 [ext_resource path="res://assets/samus/aim up run/07.png" type="Texture" id=37]
 [ext_resource path="res://assets/samus/aim up run/08.png" type="Texture" id=38]
 [ext_resource path="res://assets/samus/aim up run/09.png" type="Texture" id=39]
 [ext_resource path="res://assets/samus/aim up run/10.png" type="Texture" id=40]
 [ext_resource path="res://assets/samus/aim down run/02.png" type="Texture" id=41]
 [ext_resource path="res://assets/samus/aim down run/06.png" type="Texture" id=42]
-[ext_resource path="res://assets/samus/aim down run/07.png" type="Texture" id=43]
+[ext_resource path="res://assets/samus/aim up run/right/01.png" type="Texture" id=43]
 [ext_resource path="res://assets/samus/aim down run/08.png" type="Texture" id=44]
 [ext_resource path="res://assets/samus/aim down run/09.png" type="Texture" id=45]
 [ext_resource path="res://assets/samus/aim down run/10.png" type="Texture" id=46]
@@ -50,7 +50,7 @@
 [ext_resource path="res://assets/samus/aim down run/04.png" type="Texture" id=48]
 [ext_resource path="res://assets/samus/aim down run/03.png" type="Texture" id=49]
 [ext_resource path="res://assets/samus/aim down run/05.png" type="Texture" id=50]
-[ext_resource path="res://assets/samus/aim up.png" type="Texture" id=51]
+[ext_resource path="res://assets/samus/aim up standing left.png" type="Texture" id=51]
 [ext_resource path="res://src/entities/ScreenShake.gd" type="Script" id=52]
 [ext_resource path="res://assets/samus/crouch/3.png" type="Texture" id=53]
 [ext_resource path="res://assets/samus/crouch/2.png" type="Texture" id=54]
@@ -58,11 +58,60 @@
 [ext_resource path="res://assets/samus/crouch turn/3.png" type="Texture" id=56]
 [ext_resource path="res://assets/samus/crouch turn/2.png" type="Texture" id=57]
 [ext_resource path="res://assets/samus/crouch turn/1.png" type="Texture" id=58]
+[ext_resource path="res://assets/samus/crouch aim/crouch aim side down.png" type="Texture" id=59]
+[ext_resource path="res://assets/samus/crouch aim/crouch aim up.png" type="Texture" id=60]
+[ext_resource path="res://assets/samus/crouch aim/crouch aim side up.png" type="Texture" id=61]
+[ext_resource path="res://assets/samus/crouch/right/2.png" type="Texture" id=62]
+[ext_resource path="res://assets/samus/crouch/right/1.png" type="Texture" id=63]
+[ext_resource path="res://assets/samus/aim down run/right/03.png" type="Texture" id=64]
+[ext_resource path="res://assets/samus/aim up standing right.png" type="Texture" id=65]
+[ext_resource path="res://assets/samus/aim up run/right/03.png" type="Texture" id=66]
+[ext_resource path="res://assets/samus/crouch aim/right/aim up.png" type="Texture" id=67]
+[ext_resource path="res://assets/samus/Aim/up right.png" type="Texture" id=68]
+[ext_resource path="res://assets/samus/aim up run/right/02.png" type="Texture" id=69]
+[ext_resource path="res://assets/samus/aim down run/right/04.png" type="Texture" id=70]
+[ext_resource path="res://assets/samus/Aim/down rigt.png" type="Texture" id=71]
+[ext_resource path="res://assets/samus/aim up run/04.png" type="Texture" id=72]
+[ext_resource path="res://assets/samus/crouch aim/right/aim side up.png" type="Texture" id=73]
+[ext_resource path="res://assets/samus/crouch aim/right/aim down.png" type="Texture" id=74]
+[ext_resource path="res://assets/samus/crouch/right/3.png" type="Texture" id=75]
+[ext_resource path="res://assets/samus/aim up run/right/05.png" type="Texture" id=76]
+[ext_resource path="res://assets/samus/aim up run/right/06.png" type="Texture" id=77]
+[ext_resource path="res://assets/samus/aim up run/06.png" type="Texture" id=78]
+[ext_resource path="res://assets/samus/aim down run/right/02.png" type="Texture" id=79]
+[ext_resource path="res://assets/samus/aim up run/right/07.png" type="Texture" id=80]
+[ext_resource path="res://assets/samus/aim up run/right/08.png" type="Texture" id=81]
+[ext_resource path="res://assets/samus/aim up run/right/09.png" type="Texture" id=82]
+[ext_resource path="res://assets/samus/aim down run/right/01.png" type="Texture" id=83]
+[ext_resource path="res://assets/samus/aim down run/07.png" type="Texture" id=84]
+[ext_resource path="res://assets/samus/aim down run/right/06.png" type="Texture" id=85]
+[ext_resource path="res://assets/samus/aim down run/right/05.png" type="Texture" id=86]
+[ext_resource path="res://assets/samus/aim down run/right/07.png" type="Texture" id=87]
+[ext_resource path="res://assets/samus/aim down run/right/08.png" type="Texture" id=88]
+[ext_resource path="res://assets/samus/aim down run/right/10.png" type="Texture" id=89]
+[ext_resource path="res://assets/samus/aim down run/right/09.png" type="Texture" id=90]
+[ext_resource path="res://assets/samus/death/Right/05.png" type="Texture" id=91]
+[ext_resource path="res://assets/samus/death/Right/08.png" type="Texture" id=92]
+[ext_resource path="res://assets/samus/death/Right/04.png" type="Texture" id=93]
+[ext_resource path="res://assets/samus/death/Right/07.png" type="Texture" id=94]
+[ext_resource path="res://assets/samus/death/Right/02.png" type="Texture" id=95]
+[ext_resource path="res://assets/samus/death/Right/09.png" type="Texture" id=96]
+[ext_resource path="res://assets/samus/death/Right/03.png" type="Texture" id=97]
+[ext_resource path="res://assets/samus/death/Right/01.png" type="Texture" id=98]
+[ext_resource path="res://assets/samus/death/Right/06.png" type="Texture" id=99]
+[ext_resource path="res://assets/samus/risefall/right/rise 2.png" type="Texture" id=100]
+[ext_resource path="res://assets/samus/risefall/right/rise 3.png" type="Texture" id=101]
+[ext_resource path="res://assets/samus/risefall/right/fall 3.png" type="Texture" id=102]
+[ext_resource path="res://assets/samus/risefall/right/fall 2.png" type="Texture" id=103]
+[ext_resource path="res://assets/samus/risefall/right/rise 1.png" type="Texture" id=104]
+[ext_resource path="res://assets/samus/run_right.png" type="Texture" id=105]
+[ext_resource path="res://assets/samus/spin_right.png" type="Texture" id=106]
+[ext_resource path="res://assets/samus/stand_right.png" type="Texture" id=107]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 22 )
 shader_param/active = false
-shader_param/offset = 0.75
+shader_param/offset = 0.9
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 3 )
@@ -159,14 +208,9 @@ animations = [ {
 "name": "idle",
 "speed": 4.0
 }, {
-"frames": [ ExtResource( 33 ), ExtResource( 34 ), ExtResource( 32 ), ExtResource( 23 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ) ],
+"frames": [ ExtResource( 33 ), ExtResource( 34 ), ExtResource( 32 ), ExtResource( 72 ), ExtResource( 35 ), ExtResource( 78 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ) ],
 "loop": true,
 "name": "aim side up run",
-"speed": 20.0
-}, {
-"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
-"loop": true,
-"name": "spin",
 "speed": 20.0
 }, {
 "frames": [ ExtResource( 27 ) ],
@@ -174,12 +218,17 @@ animations = [ {
 "name": "falling",
 "speed": 0.0
 }, {
+"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
+"loop": true,
+"name": "spin",
+"speed": 20.0
+}, {
 "frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
 "loop": true,
 "name": "run",
 "speed": 20.0
 }, {
-"frames": [ ExtResource( 10 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 5 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 1 ), ExtResource( 10 ) ],
 "loop": false,
 "name": "turn standing",
 "speed": 40.0
@@ -214,10 +263,10 @@ animations = [ {
 "name": "aim_side_down",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 24 ), ExtResource( 26 ), ExtResource( 25 ), ExtResource( 30 ), ExtResource( 27 ) ],
+"frames": [ ExtResource( 26 ), ExtResource( 25 ), ExtResource( 30 ) ],
 "loop": false,
 "name": "falling turn",
-"speed": 15.0
+"speed": 12.0
 }, {
 "frames": [ ExtResource( 28 ) ],
 "loop": false,
@@ -234,7 +283,208 @@ animations = [ {
 "name": "aim up standing",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 47 ), ExtResource( 41 ), ExtResource( 49 ), ExtResource( 48 ), ExtResource( 50 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ), ExtResource( 45 ), ExtResource( 46 ) ],
+"frames": [ ExtResource( 47 ), ExtResource( 41 ), ExtResource( 49 ), ExtResource( 48 ), ExtResource( 50 ), ExtResource( 42 ), ExtResource( 84 ), ExtResource( 44 ), ExtResource( 45 ), ExtResource( 46 ) ],
+"loop": true,
+"name": "aim side down run",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 56 ), ExtResource( 57 ), ExtResource( 58 ) ],
+"loop": false,
+"name": "crouch turn",
+"speed": 35.0
+}, {
+"frames": [ ExtResource( 55 ), ExtResource( 54 ), ExtResource( 53 ) ],
+"loop": true,
+"name": "crouch",
+"speed": 4.0
+}, {
+"frames": [ ExtResource( 59 ) ],
+"loop": false,
+"name": "crouch aim side down",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 60 ) ],
+"loop": false,
+"name": "crouch aim up",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 61 ) ],
+"loop": false,
+"name": "crouch aim side up",
+"speed": 20.0
+} ]
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 107 )
+region = Rect2( 0, 0, 48, 45 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 107 )
+region = Rect2( 48, 0, 48, 45 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 107 )
+region = Rect2( 96, 0, 48, 45 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 107 )
+region = Rect2( 144, 0, 48, 45 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 106 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 106 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 106 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 106 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 106 )
+region = Rect2( 128, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 106 )
+region = Rect2( 160, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 106 )
+region = Rect2( 192, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 106 )
+region = Rect2( 224, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 105 )
+region = Rect2( 0, 0, 48, 44 )
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 105 )
+region = Rect2( 48, 0, 48, 44 )
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 105 )
+region = Rect2( 96, 0, 48, 44 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 105 )
+region = Rect2( 144, 0, 48, 44 )
+
+[sub_resource type="AtlasTexture" id=41]
+atlas = ExtResource( 105 )
+region = Rect2( 192, 0, 48, 44 )
+
+[sub_resource type="AtlasTexture" id=42]
+atlas = ExtResource( 105 )
+region = Rect2( 240, 0, 48, 44 )
+
+[sub_resource type="AtlasTexture" id=43]
+atlas = ExtResource( 105 )
+region = Rect2( 288, 0, 48, 44 )
+
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 105 )
+region = Rect2( 336, 0, 48, 44 )
+
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 105 )
+region = Rect2( 384, 0, 48, 44 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 105 )
+region = Rect2( 432, 0, 48, 44 )
+
+[sub_resource type="SpriteFrames" id=47]
+animations = [ {
+"frames": [ SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
+"loop": true,
+"name": "idle",
+"speed": 4.0
+}, {
+"frames": [ ExtResource( 43 ), ExtResource( 69 ), ExtResource( 66 ), ExtResource( 23 ), ExtResource( 76 ), ExtResource( 77 ), ExtResource( 80 ), ExtResource( 81 ), ExtResource( 82 ), ExtResource( 36 ) ],
+"loop": true,
+"name": "aim side up run",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 102 ) ],
+"loop": false,
+"name": "falling",
+"speed": 0.0
+}, {
+"frames": [ SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ) ],
+"loop": true,
+"name": "spin",
+"speed": 20.0
+}, {
+"frames": [ SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ) ],
+"loop": true,
+"name": "run",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 5 ) ],
+"loop": false,
+"name": "turn standing",
+"speed": 40.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": false,
+"name": "neutral",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 95 ) ],
+"loop": false,
+"name": "death_1",
+"speed": 2.0
+}, {
+"frames": [ ExtResource( 68 ) ],
+"loop": false,
+"name": "aim_side_up",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 97 ), ExtResource( 93 ), ExtResource( 91 ), ExtResource( 99 ), ExtResource( 94 ), ExtResource( 92 ), ExtResource( 96 ), ExtResource( 96 ), ExtResource( 96 ) ],
+"loop": false,
+"name": "death_2",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 98 ) ],
+"loop": true,
+"name": "death_0",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 71 ) ],
+"loop": false,
+"name": "aim_side_down",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 24 ), ExtResource( 103 ), ExtResource( 102 ) ],
+"loop": false,
+"name": "falling turn",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 101 ) ],
+"loop": false,
+"name": "rising",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 104 ), ExtResource( 100 ), ExtResource( 101 ) ],
+"loop": false,
+"name": "rising turn",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 65 ) ],
+"loop": false,
+"name": "aim up standing",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 83 ), ExtResource( 79 ), ExtResource( 64 ), ExtResource( 70 ), ExtResource( 86 ), ExtResource( 85 ), ExtResource( 87 ), ExtResource( 88 ), ExtResource( 90 ), ExtResource( 89 ) ],
 "loop": true,
 "name": "aim side down run",
 "speed": 20.0
@@ -244,20 +494,34 @@ animations = [ {
 "name": "crouch turn",
 "speed": 35.0
 }, {
-"frames": [ ExtResource( 55 ), ExtResource( 54 ), ExtResource( 53 ) ],
+"frames": [ ExtResource( 63 ), ExtResource( 62 ), ExtResource( 75 ) ],
 "loop": true,
 "name": "crouch",
 "speed": 4.0
+}, {
+"frames": [ ExtResource( 74 ) ],
+"loop": false,
+"name": "crouch aim side down",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 67 ) ],
+"loop": false,
+"name": "crouch aim up",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 73 ) ],
+"loop": false,
+"name": "crouch aim side up",
+"speed": 20.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=25]
+[sub_resource type="RectangleShape2D" id=48]
 extents = Vector2( 6.55014, 17.6702 )
 
-[sub_resource type="Animation" id=26]
-resource_name = "damage"
+[sub_resource type="Animation" id=49]
 length = 1.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:modulate")
+tracks/0/path = NodePath("SpriteLeft:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -269,7 +533,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0.266667 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("AnimatedSprite:material:shader_param/active")
+tracks/1/path = NodePath("SpriteLeft:material:shader_param/active")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -280,8 +544,46 @@ tracks/1/keys = {
 "update": 1,
 "values": [ true, false ]
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "endHitstun"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SpriteRight:material:shader_param/active")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("SpriteRight:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.1, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Color( 1, 1, 1, 0.266667 ), Color( 1, 1, 1, 1 ) ]
+}
 
-[sub_resource type="Animation" id=27]
+[sub_resource type="Animation" id=50]
 length = 1.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
@@ -308,7 +610,7 @@ tracks/1/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=28]
+[sub_resource type="Animation" id=51]
 length = 0.75
 tracks/0/type = "value"
 tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
@@ -323,7 +625,7 @@ tracks/0/keys = {
 "values": [ Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=29]
+[sub_resource type="Animation" id=52]
 length = 2.25
 tracks/0/type = "value"
 tracks/0/path = NodePath("CanvasLayer/ColorRect:color")
@@ -351,6 +653,7 @@ tracks/1/keys = {
 }
 
 [node name="Samus" type="KinematicBody2D"]
+position = Vector2( -26.3491, 9.30898 )
 z_index = 10
 collision_mask = 8
 script = ExtResource( 2 )
@@ -358,19 +661,24 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="SpriteLeft" type="AnimatedSprite" parent="."]
 material = SubResource( 1 )
 frames = SubResource( 24 )
-animation = "crouch"
-frame = 2
+animation = "crouch aim up"
 playing = true
-flip_h = true
+
+[node name="SpriteRight" type="AnimatedSprite" parent="."]
+material = SubResource( 1 )
+frames = SubResource( 47 )
+animation = "spin"
+frame = 7
+playing = true
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2( -3.0647, -0.956604 )
 scale = Vector2( 0.9, 0.9 )
 z_index = 100
-shape = SubResource( 25 )
+shape = SubResource( 48 )
 
 [node name="BulletPosition" type="Position2D" parent="."]
 position = Vector2( 13.2513, 1.00818 )
@@ -378,6 +686,7 @@ position = Vector2( 13.2513, 1.00818 )
 [node name="Camera2D" type="Camera2D" parent="."]
 visible = false
 current = true
+zoom = Vector2( 1.2, 1.2 )
 limit_left = 0
 limit_bottom = 0
 smoothing_speed = 6.0
@@ -385,10 +694,10 @@ editor_draw_screen = false
 editor_draw_limits = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/damage = SubResource( 26 )
-anims/death1 = SubResource( 27 )
-anims/death2 = SubResource( 28 )
-anims/death3 = SubResource( 29 )
+anims/damage = SubResource( 49 )
+anims/death1 = SubResource( 50 )
+anims/death2 = SubResource( 51 )
+anims/death3 = SubResource( 52 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -418,5 +727,6 @@ script = ExtResource( 52 )
 
 [node name="Tween" type="Tween" parent="ScreenShake"]
 [connection signal="input_event" from="." to="." method="_on_Samus__power_input_event"]
-[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="animation_finished" from="SpriteLeft" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="animation_finished" from="SpriteRight" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="IFrameTimer" to="." method="_on_IFrameTimer_timeout"]

@@ -1,20 +1,23 @@
 extends KinematicBody2D
 
 export var playFanfare = false
+export var outputVelocity = false
 
 const walkSpeedCap = 150
-const runSpeedCap = 250
-const airSpeedCap = 150
+const runSpeedCap = 275
+const spinSpeedCap = 150
+const jumpSpeed = 72
+var debug_shift_count = 0
 
 const walkSpeed = 17
-const airSpeed = 15
+const spinDeceleration = 0.3
 
 const runDeceleration = 0.3
 
-const jumpPower = 50
-const jumpCap = 500
-const gravity = 20
-const jumpGravity = 20
+const jumpPower = 22
+const jumpCap = 270
+const gravity = 9
+const fallCap = 250
 
 const canSpinJumpInAir = false
 
@@ -22,8 +25,10 @@ const FLOOR = Vector2(0, -1)
 var invincible = false
 var run_physics = false
 var velocity = Vector2()
+var hitstun = false
 var direction = ""
 var facing = "right"
+var fallAnim = false
 var spinChannel = ""
 var aiming = "none"
 
@@ -36,7 +41,7 @@ var mode = "idle"
 var awaitAnimation = false
 var falling = false
 var spinning = false
-var animCache: String
+var animCache: Array
 var HUD: Control
 
 var weaponList = [
@@ -80,7 +85,7 @@ func _ready():
 
 	if playFanfare:
 		invincible = true
-		$AnimatedSprite.play("neutral")
+		$SpriteLeft.play("neutral")
 		mode = "neutral"
 		facing = "neutral"
 		yield(playSound("loadmusic"), "finished")
@@ -89,13 +94,36 @@ func _ready():
 	setHitBox()
 	run_physics = true
 		
-
 func _physics_process(delta):
+	
+	var delt = delta * 59.999997
+	
+	if outputVelocity:
+		print(velocity)
+
+	if Input.is_action_just_pressed("debug_shift_left"):
+		self.position.x -= 16
+		debug_shift_count += 1
+		print("Shift count: ", debug_shift_count)
+		
+	if Input.is_action_just_pressed("debug_shift_right"):
+		self.position.x +=16
+		debug_shift_count += 1
+		print("Shift count: ", debug_shift_count)
+		
+	if Input.is_action_just_pressed("debug_reset_shift_count"):
+		debug_shift_count = 0
+		print("Shift count: ", debug_shift_count)
+		
+	
 	
 	if not run_physics:
 		return
 	
-	movementHandler(delta)
+	if int(delt) != 1:
+		print("Delt is not 1! Value of delt: ", delt)
+	
+	movementHandler(delt)
 	cycleWeapon()
 	
 	if not awaitAnimation:
@@ -119,47 +147,62 @@ func _physics_process(delta):
 			"jump": 
 				if spinning:
 					animate("spin")
-				elif falling:
+				elif falling and velocity.y > 0:
 					animate("falling")
 				else:
 					animate("rising")
 			"crouch":
-				animate("crouch")
+				if aiming == "side up":
+					animate("crouch aim side up")
+				elif aiming == "side down":
+					animate("crouch aim side down")
+				elif aiming == "up":
+					animate("crouch aim up")
+				else:
+					animate("crouch")
 
 	# apply gravity to the velocity
-	velocity.y += gravity
-	if mode == "jumpfall":
-		velocity.y += jumpGravity
+	if velocity.y < fallCap and not hitstun:
+		velocity.y += gravity
 	
 	# move based on final velocity
 	velocity = move_and_slide(velocity, FLOOR)
-	
-	if "spin" in $AnimatedSprite.animation and spinChannel is String:
+
+	if "spin" in $SpriteLeft.animation and spinChannel is String:
 		spinChannel = playSound("spin")
 
-	elif not "spin" in $AnimatedSprite.animation and not spinChannel is String:
+	elif not "spin" in $SpriteLeft.animation and not spinChannel is String:
 		spinChannel.stop()
 		spinChannel = ""
 	
 
 func movementHandler(delt):
-	if Input.is_action_just_pressed("fire_shot"):
-		shot()
 	
+	if Input.is_action_just_pressed("pause"):
+		get_tree().paused = true
+
 	if Input.is_action_just_pressed("cancel_selection"):
 		cycleWeapon("cancel")
 	
+	if hitstun:
+		return
+		
+	if Input.is_action_just_pressed("fire_shot"):
+		shot()
+	
 	if (Input.is_action_pressed("aim_up") and Input.is_action_pressed("aim_down")) or (mode == "idle" and Input.is_action_pressed("ui_up")):
 		if aiming == "side down":
-			turnAnimation("aim_side_up")
+			match mode:
+				"idle": turnAnimation("aim_side_up")
+				"crouch": turnAnimation("crouch aim side up")
 		aiming = "up"
-
-
 	elif Input.is_action_pressed("aim_up") or (mode == "run" and Input.is_action_pressed("up")):
 		aiming = "side up"
 	elif Input.is_action_pressed("aim_down") or (mode == "run" and Input.is_action_pressed("crouch")):
 		if aiming == "up":
-			turnAnimation("aim_side_up")
+			match mode:
+				"idle": turnAnimation("aim_side_up")
+				"crouch": turnAnimation("crouch aim side up")
 		aiming = "side down"
 	else:
 		aiming = "none"
@@ -185,29 +228,44 @@ func movementHandler(delt):
 		elif Input.is_action_just_pressed("jump"):
 			mode = "jump"
 			falling = false
-			velocity.y -= jumpPower
+			velocity.y -= jumpPower * delt
 			
 			if not round(velocity.x) - 10 <= 0 or not round(velocity.x) + 10 >= 0:
-				spinning = true
-			else:
-				turnAnimation("rising turn")
+				spinning = true	
+				velocity.x -= velocity.x * 0.2
 			return
 
 		var cap = walkSpeedCap
 		
 		if Input.is_action_pressed("run"):
 			cap = runSpeedCap
+			match facing:
+				"right": 
+					if velocity.x >= cap:
+						$SpriteLeft.speed_scale = 1.35
+						$SpriteRight.speed_scale = 1.35
+					else:
+						$SpriteLeft.speed_scale = 1
+						$SpriteRight.speed_scale = 1
+					
+				"left": 
+					if velocity.x <= -cap:
+						$SpriteLeft.speed_scale = 1.35
+						$SpriteRight.speed_scale = 1.35
+					else:
+						$SpriteLeft.speed_scale = 1
+						$SpriteRight.speed_scale = 1
 		
 		if Input.is_action_pressed("move_left"):
 			mode = "run"
 			
 			if velocity.x > -cap:
-				velocity.x -= walkSpeed
+				velocity.x -= walkSpeed * delt
 		elif Input.is_action_pressed("move_right"):
 			mode = "run"
 			
 			if velocity.x < cap:
-				velocity.x += walkSpeed
+				velocity.x += walkSpeed * delt
 		elif mode != "neutral":
 			mode = "idle"
 			velocity.x = lerp(velocity.x, 0, runDeceleration)
@@ -223,28 +281,49 @@ func movementHandler(delt):
 			
 			falling = false
 			spinning = false
+			fallAnim = false
 			return
 			
 		if (Input.is_action_just_released("jump") or velocity.y <= -jumpCap or is_on_ceiling()) and not falling:
 			falling = true
-			if not spinning:
-				turnAnimation("falling turn")
+				
+		if not fallAnim:
+			if velocity.y > 0:
+				fallAnim = true
+				if not spinning:
+					turnAnimation("falling turn")
 			
 		if not falling:
-			velocity.y = min(velocity.y - jumpPower, jumpCap)
+			velocity.y = min(velocity.y - jumpPower * delt, jumpCap)
+			
+		if not spinning:
+			if Input.is_action_pressed("move_left"):
+				velocity.x = -jumpSpeed
+			elif Input.is_action_pressed("move_right"):
+				velocity.x = jumpSpeed
+			else:
+				velocity.x = 0
+		else:
+			if Input.is_action_pressed("move_left"):
+				velocity.x = min(velocity.x, -jumpSpeed)
+			elif Input.is_action_pressed("move_right"):
+				velocity.x = max(velocity.x, jumpSpeed)
+			else:
+				lerp(velocity.x, jumpSpeed, spinDeceleration)
+					
 			
 	elif mode == "crouch":
 		
-		if Input.is_action_just_pressed("move_left"):
-			if startFacing == "left":
+		if Input.is_action_pressed("move_left"):
+			if startFacing == "left" and $SpriteLeft.animation != "crouch turn":
 				mode = "run"
 				self.position.y -= 10
 				return
 			else:
 				turnAnimation("crouch turn")
 				
-		elif Input.is_action_just_pressed("move_right"):
-			if startFacing == "right":
+		elif Input.is_action_pressed("move_right"):
+			if startFacing == "right" and $SpriteLeft.animation != "crouch turn":
 				mode = "run"
 				self.position.y -= 10
 				return
@@ -258,6 +337,7 @@ func movementHandler(delt):
 			
 			if not round(velocity.x) - 10 <= 0 or not round(velocity.x) + 10 >= 0:
 				spinning = true
+				velocity.x -= velocity.x * 0.2
 			else:
 				turnAnimation("rising turn")
 			return
@@ -308,7 +388,7 @@ func pickupHandler(type):
 
 func shot():
 	
-	if $AnimatedSprite.animation == "turn standing":
+	if $SpriteLeft.animation == "turn standing":
 		return
 	
 	var weapon = weaponList[selectedWeapon]
@@ -357,7 +437,7 @@ func shot():
 	
 	
 
-func damageHandler(type):
+func damageHandler(type, knockback):
 	
 	if invincible:
 		return
@@ -373,8 +453,30 @@ func damageHandler(type):
 
 	invincible = true
 	
+	if knockback.x > 0:
+		knockback.x = -400
+	else:
+		knockback.x = 400
+	
+	if is_on_floor():
+		knockback.y = -100
+	elif knockback.y > 0:
+		knockback.y = -250
+	else:
+		knockback.y = 250
+
+	velocity = knockback
+
+	if mode == "jump":
+		self.position.y -= 10
+		falling = false
+		spinning = false
+
+	mode = "idle"
+
+
 	playSound("damage")
-	$AnimatedSprite.modulate = Color(2, 2, 2, 1 )
+	$SpriteLeft.modulate = Color(2, 2, 2, 1 )
 	$AnimationPlayer.play("damage")
 
 	$IFrameTimer.start()
@@ -403,7 +505,8 @@ func death():
 	for channel in audioChannels:
 		channel.stop()
 		
-	$AnimatedSprite.playing = false
+	$SpriteLeft.playing = false
+	$SpriteRight.playing = false
 		
 	$Hitbox.call_deferred("disabled", true)
 	$Hitbox.disabled = true
@@ -412,18 +515,20 @@ func death():
 	yield($AnimationPlayer, "animation_finished")
 	
 	playSound("death")
-	$AnimatedSprite.playing = true
+	$SpriteLeft.playing = true
+	$SpriteRight.playing = true
 	
-	$AnimatedSprite.play("death_0")
-	yield($AnimatedSprite, "animation_finished")
+	animate("death_0")
+	yield($SpriteLeft, "animation_finished")
 	
-	$AnimatedSprite.play("death_1")
-	yield($AnimatedSprite, "animation_finished")
+	animate("death_1")
+	yield($SpriteLeft, "animation_finished")
 	
 	$AnimationPlayer.play("death2")
-	$AnimatedSprite.play("death_2")
-	yield($AnimatedSprite, "animation_finished")
-	$AnimatedSprite.visible = false
+	animate("death_2")
+	yield($SpriteLeft, "animation_finished")
+	$SpriteLeft.visible = false
+	$SpriteRight.visible = false
 	
 	$AnimationPlayer.play("death3")
 	yield($AnimationPlayer, "animation_finished")
@@ -447,23 +552,29 @@ func _on_AnimatedSprite_animation_finished():
 
 func animate(anim:String, dir: String = facing):
 	
-	if anim == animCache:
+	if [anim, facing] == animCache:
 		return
 	else:
-		animCache = anim
-	
-	var sprite = $AnimatedSprite
+		animCache = [anim, facing]
+		
+	$SpriteLeft.speed_scale = 1
+	$SpriteRight.speed_scale = 1
 	
 	match dir.to_lower():
-		"right": sprite.flip_h = true
-		"left": sprite.flip_h = false
+		"right": 
+			$SpriteLeft.visible = false
+			$SpriteRight.visible = true
+		"left": 
+			$SpriteLeft.visible = true
+			$SpriteRight.visible = false
 
-	sprite.play(anim)
+	$SpriteLeft.play(anim)
+	$SpriteRight.play(anim)
 	setHitBox()
-	return sprite
+	return $SpriteLeft
 
 func turnAnimation(anim):
-	if not awaitAnimation and not "turn" in $AnimatedSprite.animation:
+	if not awaitAnimation and not "turn" in $SpriteLeft.animation and $SpriteLeft.animation != "aim_side_up" and ($SpriteLeft.animation != "crouch aim side up" or anim == "crouch turn"):
 		awaitAnimation = true
 		animate(anim)
 
@@ -472,15 +583,15 @@ func setHitBox():
 	
 	var result: Array
 
-	match $AnimatedSprite.animation:
+	match $SpriteLeft.animation:
 		"neutral": result = [Vector2(4.5498, 26.2698), Vector2(0.110184, -0.550914)]
 		"idle", "run", "turn standing", "aim_side_up", "aim_side_down", "aim side up run", "aim side down run", "aim up standing": result = [Vector2(4.51672, 23.4076), Vector2(0, 1.10183)]
 		"spin": result = [Vector2(5.52311, 13.3218), Vector2(-0.042957, 0.010602)]
-		"crouch": match facing:
+		"crouch", "crouch aim side up", "crouch aim side down", "crouch aim up": match facing:
 			"left": result = [Vector2(6.55, 17.67), Vector2(3.88, -0.957)]
 			"right": result = [Vector2(6.55, 17.67), Vector2(-3.065, -0.957)]
 		
-	match $AnimatedSprite.animation:
+	match $SpriteLeft.animation:
 		"idle": match facing:
 			"right": $BulletPosition.position = Vector2(14.174, -2.9)
 			"left": $BulletPosition.position = Vector2(-14.174, -2.9)
@@ -506,6 +617,8 @@ func setHitBox():
 	$Hitbox.get_shape().set_extents(result[0])
 	$Hitbox.position = result[1]
 
+func endHitstun():
+	velocity = Vector2(0, 0)
 
 func _on_IFrameTimer_timeout():
 	$IFrameTimer.stop()

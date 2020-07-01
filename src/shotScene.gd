@@ -13,9 +13,14 @@ func setType(type):
 	beamType = type
 	
 	match beamType:
-		"standard": sound = preload("res://assets/sounds/samus/BaseShot.ogg")
+		"standard": 
+			sound = preload("res://assets/sounds/samus/BaseShot.ogg")
+			$Hitbox.position.x = 0
+			$Hitbox.shape.height = 4
+			$Hitbox.shape.radius = 9
 		"missile": sound = preload("res://assets/sounds/samus/Missile.ogg")
 		"super missile": sound = preload("res://assets/sounds/samus/SMissile.ogg")
+		
 	
 func momentumBoost(vel:Vector2):
 	boost = vel / 75
@@ -28,31 +33,31 @@ func setDirection(dir):
 	match direction:
 		"right": 
 			action = Vector2(bulletSpeed, 0)
-			$AnimatedSprite.rotation_degrees = 180
+			self.rotation_degrees = 180
 		"left": 
 			action = Vector2(-bulletSpeed, 0)
 		"up": 
 			action = Vector2(0, -bulletSpeed)
-			$AnimatedSprite.rotation_degrees = 90
+			self.rotation_degrees = 90
 		"down": 
 			action = Vector2(0, bulletSpeed)
-			$AnimatedSprite.rotation_degrees = 270
+			self.rotation_degrees = 270
 		
 		"upright": 
 			action = Vector2(bulletSpeed, -bulletSpeed)
-			$AnimatedSprite.rotation_degrees = 135
+			self.rotation_degrees = 135
 				
 		"upleft": 
 			action = Vector2(-bulletSpeed, -bulletSpeed)
-			$AnimatedSprite.rotation_degrees = 45
+			self.rotation_degrees = 45
 			
 		"downleft": 
 			action = Vector2(-bulletSpeed, bulletSpeed)
-			$AnimatedSprite.rotation_degrees = 315
+			self.rotation_degrees = 315
 			
 		"downright": 
 			action = Vector2(bulletSpeed, bulletSpeed)
-			$AnimatedSprite.rotation_degrees = 225
+			self.rotation_degrees = 225
 			
 	if (boost.x > 0 and action.x > 0) or (boost.x < 0 and action.x < 0):
 		action.x += boost.x
@@ -62,7 +67,7 @@ func setDirection(dir):
 		
 
 func _ready():
-
+	
 	# crash the program if the action has not been set
 	if not action:
 		print("ERROR: Bullet's 'direction' variable was not set correctly")
@@ -119,16 +124,21 @@ func _on_Standard_shot_body_entered(body):
 	if body.name == "LevelTileMap":
 		direction = "stop"
 		
-		$AnimatedSprite.rotation_degrees = 0
+		self.rotation_degrees = 0
 		
+		$Hitbox.shape.height = 1
 		if beamType == "standard":
 			$AnimatedSprite.play("small explosion")
+			
+			$Hitbox.shape.radius = 16
 		else:
 			$AnimatedSprite.play("large explosion")
 		
+			$Hitbox.shape.radius = 30
 		yield($AnimatedSprite, "animation_finished")
 	else:
 		body.handleShot(beamType)
+		
 	
 		
 	killSelf()

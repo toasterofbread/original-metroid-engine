@@ -54,7 +54,8 @@ func handleShot(type):
 
 func _on_Area2D_body_entered(body):
 	if "Samus" in body.name and not dead:
-		body.damageHandler(enemyType.to_lower())
+		
+		body.damageHandler(enemyType.to_lower(), self.position - body.position)
 
 func check_collision():
 
