@@ -1,0 +1,350 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://src/BabyMetroidTank.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/other/title screen/BG off.png" type="Texture" id=2]
+[ext_resource path="res://assets/other/title screen/BG on.png" type="Texture" id=3]
+[ext_resource path="res://assets/other/title screen/Light layer.png" type="Texture" id=4]
+[ext_resource path="res://src/TitleScreen.gd" type="Script" id=5]
+[ext_resource path="res://assets/music/Title theme.ogg" type="AudioStream" id=6]
+[ext_resource path="res://assets/other/title screen/logo.png" type="Texture" id=7]
+[ext_resource path="res://assets/other/title screen/Opening logo.png" type="Texture" id=8]
+[ext_resource path="res://assets/sounds/other/BabyMetroidCry 1.ogg" type="AudioStream" id=9]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 100.0
+} ]
+
+[sub_resource type="Animation" id=4]
+resource_name = "main"
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Lighting:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.196078 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.196078 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "start"
+length = 32.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/ColorRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 7.1, 11, 12.5, 14.7, 16.2, 20.3, 23 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true, false, true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CanvasLayer/Opening logo:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 2, 2.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CanvasLayer/Opening logo:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("MainAudio:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CanvasLayer/RichTextLabel:text")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 6, 6.1, 6.2, 6.3, 11, 11.1, 11.2, 11.3, 11.4, 11.5, 11.6, 11.7, 14.7, 14.8, 14.9, 15, 15.1, 15.2, 15.3, 15.4, 20.3, 20.4, 20.5, 20.6, 20.7, 20.8, 20.9, 21, 21.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "", "      1", "    19", "  199", "1994", "               N", "              NI", "           NIN", "         NINT", "        NINTE", "     NINTEN", "   NINTEND", "NINTENDO", "             P", "           PR", "         PRE", "       PRES", "      PRESE", "   PRESEN", " PRESENT", "PRESENTS", "               M", "             ME", "           MET", "         METR", "      METRO", "     METROI", "   METROID", "  METROID ", "METROID 3" ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CanvasLayer/RichTextLabel:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 6, 7.1, 11, 12.5, 14.7, 16.2, 20.3, 23 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false, true, false, true, false, true, false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("SuperMetroidLogo:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 30.4, 30.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, true ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("AnimatedSprite:playing")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 23 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("AnimatedSprite:frame")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 7.5, 7.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 5, 4, 5 ]
+}
+tracks/9/type = "method"
+tracks/9/path = NodePath(".")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 5.4, 23 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "startBaby"
+}, {
+"args": [  ],
+"method": "startLighting"
+} ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Camera2D:zoom")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 7.1, 11, 12.5, 20.3, 23, 30.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.28, 0.28 ), Vector2( 0.28, 0.28 ), Vector2( 0.38, 0.38 ), Vector2( 0.38, 0.38 ), Vector2( 0.25, 0.25 ), Vector2( 1, 1 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Camera2D:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 7.1, 11, 12.5, 14.7, 16.2, 20.3, 23, 30.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 216, 186 ), Vector2( 126, 186 ), Vector2( 145, 62 ), Vector2( 62, 62 ), Vector2( 62, 62 ), Vector2( 62, 181 ), Vector2( 128, 123 ), Vector2( 128, 112 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("AnimatedSprite:modulate")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 7.1, 11, 12.5, 16.2, 20.3, 23 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.223529, 0.2, 1, 1 ), Color( 0.584314, 0.572549, 0.929412, 1 ), Color( 1, 1, 1, 1 ), Color( 0.223529, 0.2, 1, 1 ), Color( 0.223529, 0.2, 1, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Lighting:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0, 23 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("CanvasLayer/RichTextLabel:margin_left")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0, 11, 14.7, 20.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 112.0, 93.0, 98.0, 92.0 ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("CanvasLayer/RichTextLabel:margin_top")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0, 11, 14.7, 20.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 107.0, 107.0, 107.0, 107.0 ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("CanvasLayer/RichTextLabel:margin_right")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0, 11, 14.7, 20.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 145.0, 164.0, 159.0, 164.0 ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("CanvasLayer/RichTextLabel:margin_bottom")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0, 11, 14.7, 20.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 119.0, 119.0, 119.0, 119.0 ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("SuperMetroidLogo:modulate")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 30.4, 30.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="Main title screen" type="Node2D"]
+script = ExtResource( 5 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+modulate = Color( 0.691696, 0.682353, 1, 1 )
+position = Vector2( 128, 112 )
+frames = SubResource( 1 )
+frame = 5
+
+[node name="BabyMetroidTank" parent="." instance=ExtResource( 1 )]
+position = Vector2( 128, 143 )
+
+[node name="AudioStreamPlayer2D" parent="BabyMetroidTank" index="0"]
+stream = ExtResource( 9 )
+autoplay = false
+
+[node name="AnimatedSprite" parent="BabyMetroidTank" index="1"]
+frame = 4
+
+[node name="AnimationPlayer" parent="BabyMetroidTank" index="2"]
+autoplay = ""
+
+[node name="Lighting" type="Sprite" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.196078 )
+position = Vector2( 128, 136 )
+texture = ExtResource( 4 )
+
+[node name="LightingController" type="AnimationPlayer" parent="."]
+anims/main = SubResource( 4 )
+
+[node name="SuperMetroidLogo" type="Sprite" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 134, 48 )
+texture = ExtResource( 7 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "start"
+anims/start = SubResource( 3 )
+
+[node name="MainAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Opening logo" type="Sprite" parent="CanvasLayer"]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 128, 112 )
+texture = ExtResource( 8 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+visible = false
+margin_left = 112.0
+margin_top = 107.0
+margin_right = 145.0
+margin_bottom = 119.0
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 62, 181 )
+current = true
+zoom = Vector2( 0.38, 0.38 )
+
+[editable path="BabyMetroidTank"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://assets/backgrounds/DeathScreenWithText.png" type="Texture" id=1]
+[ext_resource path="res://assets/backgrounds/death screen small.png" type="Texture" id=1]
 [ext_resource path="res://src/BabyMetroidTank.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/MenuSelector.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/DeathScreen.gd" type="Script" id=4]
@@ -25,7 +25,7 @@ tracks/0/keys = {
 script = ExtResource( 4 )
 
 [node name="BabyMetroidTank" parent="." instance=ExtResource( 2 )]
-position = Vector2( 160, 71.3124 )
+position = Vector2( 124, 80 )
 z_index = 10
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -35,10 +35,10 @@ centered = false
 [node name="MenuSelector" parent="." instance=ExtResource( 3 )]
 
 [node name="MenuLocation" type="Position2D" parent="."]
-position = Vector2( 71.0421, 174.775 )
+position = Vector2( 40, 159 )
 
 [node name="MenuLocation2" type="Position2D" parent="."]
-position = Vector2( 71.2906, 206.365 )
+position = Vector2( 40, 190 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "main"

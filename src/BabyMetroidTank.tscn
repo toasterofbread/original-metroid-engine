@@ -48,11 +48,12 @@ tracks/1/keys = {
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
+volume_db = -41.107
 autoplay = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = ExtResource( 2 )
-frame = 7
+frame = 13
 playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

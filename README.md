@@ -36,5 +36,15 @@
 - Made Samus take knockback in the opposite direction when hit by an enemy
 ### Changed
 - Made it easier for Samus to cancel into a run while crouching
-- Fine-tuned Samus's jump height, run speed, etc to more closely match Super Metroid
+- Fine-tuned Samus's jump height, run speed, etc to more closely match Super Metroid (still needs work)
+### Removed
+
+
+## 2 July 2020 (day 6)
+
+### Added
+- Added title screen
+- Added intro cinematic
+### Changed
+- Improved how Samus handles turning animations to reduce bugs and improve readability
 ### Removed

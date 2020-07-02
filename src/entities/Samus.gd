@@ -338,8 +338,7 @@ func movementHandler(delt):
 			if not round(velocity.x) - 10 <= 0 or not round(velocity.x) + 10 >= 0:
 				spinning = true
 				velocity.x -= velocity.x * 0.2
-			else:
-				turnAnimation("rising turn")
+
 			return
 		elif Input.is_action_just_pressed("up"):
 			mode = "idle"
@@ -574,8 +573,19 @@ func animate(anim:String, dir: String = facing):
 	return $SpriteLeft
 
 func turnAnimation(anim):
-	if not awaitAnimation and not "turn" in $SpriteLeft.animation and $SpriteLeft.animation != "aim_side_up" and ($SpriteLeft.animation != "crouch aim side up" or anim == "crouch turn"):
+
+	var turnAnimations = {
+		"crouch turn": ["crouch", "crouch aim side down", "crouch aim side up", "crouch aim up"],		
+		"falling turn": ["falling"],
+		"turn standing": ["run", "idle", "aim side down run", "aim side up run", "aim up standing", "aim_side_down", "aim_side_up"],
+		"crouch aim side up": ["crouch aim up", "crouch aim side down"],
+		"aim_side_up": ["aim_side_down", "aim up standing"]
+	}
+	
+
+	if $SpriteLeft.animation in turnAnimations[anim]:
 		awaitAnimation = true
+		print("anim")
 		animate(anim)
 
 func setHitBox():

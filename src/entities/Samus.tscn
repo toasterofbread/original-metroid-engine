@@ -223,11 +223,6 @@ animations = [ {
 "name": "spin",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
-"loop": true,
-"name": "run",
-"speed": 20.0
-}, {
 "frames": [ ExtResource( 5 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 1 ), ExtResource( 10 ) ],
 "loop": false,
 "name": "turn standing",
@@ -246,6 +241,11 @@ animations = [ {
 "frames": [ ExtResource( 12 ) ],
 "loop": false,
 "name": "aim_side_up",
+"speed": 20.0
+}, {
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
+"loop": true,
+"name": "run",
 "speed": 20.0
 }, {
 "frames": [ ExtResource( 14 ), ExtResource( 20 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 13 ), ExtResource( 13 ), ExtResource( 13 ) ],
@@ -424,11 +424,6 @@ animations = [ {
 "name": "spin",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ) ],
-"loop": true,
-"name": "run",
-"speed": 20.0
-}, {
 "frames": [ ExtResource( 10 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 5 ) ],
 "loop": false,
 "name": "turn standing",
@@ -447,6 +442,11 @@ animations = [ {
 "frames": [ ExtResource( 68 ) ],
 "loop": false,
 "name": "aim_side_up",
+"speed": 20.0
+}, {
+"frames": [ SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ) ],
+"loop": true,
+"name": "run",
 "speed": 20.0
 }, {
 "frames": [ ExtResource( 97 ), ExtResource( 93 ), ExtResource( 91 ), ExtResource( 99 ), ExtResource( 94 ), ExtResource( 92 ), ExtResource( 96 ), ExtResource( 96 ), ExtResource( 96 ) ],
@@ -671,7 +671,7 @@ playing = true
 material = SubResource( 1 )
 frames = SubResource( 47 )
 animation = "spin"
-frame = 7
+frame = 5
 playing = true
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
