@@ -48,3 +48,14 @@
 ### Changed
 - Improved how Samus handles turning animations to reduce bugs and improve readability
 ### Removed
+
+
+## 3 July 2020 (day 7)
+
+### Added
+- Added morph ball
+- Added bomb (damages enemies and moves Samus up when she is in morph ball form)
+- Added dynamic raycasters to Samus to prevent her from leaving morph ball/crouch mode if there is a ceiling above her
+### Changed
+- Improved how Samus's collision box is applied when her animation changes to prevent clipping into the floor
+### Removed

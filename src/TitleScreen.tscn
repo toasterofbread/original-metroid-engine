@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://src/BabyMetroidTank.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/other/title screen/BG off.png" type="Texture" id=2]
@@ -9,6 +9,19 @@
 [ext_resource path="res://assets/other/title screen/logo.png" type="Texture" id=7]
 [ext_resource path="res://assets/other/title screen/Opening logo.png" type="Texture" id=8]
 [ext_resource path="res://assets/sounds/other/BabyMetroidCry 1.ogg" type="AudioStream" id=9]
+[ext_resource path="res://assets/other/title screen/save selection/helmet/01.png" type="Texture" id=10]
+[ext_resource path="res://assets/other/title screen/save selection/helmet/05.png" type="Texture" id=11]
+[ext_resource path="res://assets/other/title screen/save selection/helmet/04.png" type="Texture" id=12]
+[ext_resource path="res://assets/other/title screen/save selection/helmet/06.png" type="Texture" id=13]
+[ext_resource path="res://assets/other/title screen/save selection/Text.png" type="Texture" id=14]
+[ext_resource path="res://assets/other/title screen/save selection/helmet/02.png" type="Texture" id=15]
+[ext_resource path="res://assets/other/title screen/save selection/helmet/03.png" type="Texture" id=16]
+[ext_resource path="res://src/MenuSelector.tscn" type="PackedScene" id=17]
+[ext_resource path="res://assets/other/title screen/save selection/helmet/07.png" type="Texture" id=18]
+[ext_resource path="res://assets/other/title screen/save selection/helmet/08.png" type="Texture" id=19]
+[ext_resource path="res://assets/other/title screen/save selection/Background.png" type="Texture" id=20]
+[ext_resource path="res://assets/other/title screen/save selection/Text with save.png" type="Texture" id=21]
+[ext_resource path="res://assets/other/title screen/save selection/NO DATA.png" type="Texture" id=22]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -18,24 +31,7 @@ animations = [ {
 "speed": 100.0
 } ]
 
-[sub_resource type="Animation" id=4]
-resource_name = "main"
-length = 1.5
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Lighting:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.8, 1.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0.196078 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.196078 ) ]
-}
-
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "start"
 length = 32.0
 tracks/0/type = "value"
@@ -153,14 +149,17 @@ tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
-"times": PoolRealArray( 5.4, 23 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 5.4, 23, 30.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "values": [ {
 "args": [  ],
 "method": "startBaby"
 }, {
 "args": [  ],
 "method": "startLighting"
+}, {
+"args": [  ],
+"method": "setmode"
 } ]
 }
 tracks/10/type = "value"
@@ -182,10 +181,10 @@ tracks/11/loop_wrap = true
 tracks/11/imported = false
 tracks/11/enabled = true
 tracks/11/keys = {
-"times": PoolRealArray( 7.1, 11, 12.5, 14.7, 16.2, 20.3, 23, 30.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 7, 7.1, 11, 12.4, 12.5, 14.7, 16.2, 20.3, 22.9, 23, 30.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 216, 186 ), Vector2( 126, 186 ), Vector2( 145, 62 ), Vector2( 62, 62 ), Vector2( 62, 62 ), Vector2( 62, 181 ), Vector2( 128, 123 ), Vector2( 128, 112 ) ]
+"values": [ Vector2( 216, 186 ), Vector2( 216, 186 ), Vector2( 126, 186 ), Vector2( 145, 62 ), Vector2( 145, 62 ), Vector2( 62, 62 ), Vector2( 62, 62 ), Vector2( 62, 181 ), Vector2( 128, 123 ), Vector2( 128, 123 ), Vector2( 128, 112 ) ]
 }
 tracks/12/type = "value"
 tracks/12/path = NodePath("AnimatedSprite:modulate")
@@ -271,15 +270,100 @@ tracks/18/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
+tracks/19/type = "value"
+tracks/19/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "fade"
+tracks/0/type = "value"
+tracks/0/path = NodePath("FadeCanvas/ColorRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("FadeCanvas/ColorRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "endFade"
+} ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Lighting:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.196078 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.196078 ) ]
+}
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ ExtResource( 21 ), ExtResource( 14 ) ],
+"loop": false,
+"name": "default",
+"speed": 0.0
+} ]
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ ExtResource( 10 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 13 ), ExtResource( 18 ), ExtResource( 19 ) ],
+"loop": false,
+"name": "default",
+"speed": 8.0
+} ]
 
 [node name="Main title screen" type="Node2D"]
 script = ExtResource( 5 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-modulate = Color( 0.691696, 0.682353, 1, 1 )
 position = Vector2( 128, 112 )
 frames = SubResource( 1 )
 frame = 5
+playing = true
 
 [node name="BabyMetroidTank" parent="." instance=ExtResource( 1 )]
 position = Vector2( 128, 143 )
@@ -289,36 +373,30 @@ stream = ExtResource( 9 )
 autoplay = false
 
 [node name="AnimatedSprite" parent="BabyMetroidTank" index="1"]
-frame = 4
+frame = 8
 
 [node name="AnimationPlayer" parent="BabyMetroidTank" index="2"]
 autoplay = ""
 
 [node name="Lighting" type="Sprite" parent="."]
-visible = false
 modulate = Color( 1, 1, 1, 0.196078 )
 position = Vector2( 128, 136 )
 texture = ExtResource( 4 )
 
-[node name="LightingController" type="AnimationPlayer" parent="."]
-anims/main = SubResource( 4 )
-
 [node name="SuperMetroidLogo" type="Sprite" parent="."]
-visible = false
-modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 134, 48 )
 texture = ExtResource( 7 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "start"
-anims/start = SubResource( 3 )
 
 [node name="MainAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
 
+[node name="SelectAudio" type="AudioStreamPlayer" parent="."]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+visible = false
+show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
@@ -327,24 +405,108 @@ __meta__ = {
 }
 
 [node name="Opening logo" type="Sprite" parent="CanvasLayer"]
+visible = false
 modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 128, 112 )
 texture = ExtResource( 8 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
 visible = false
-margin_left = 112.0
+margin_left = 92.0
 margin_top = 107.0
-margin_right = 145.0
+margin_right = 164.0
 margin_bottom = 119.0
+text = "METROID 3"
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="FadeCanvas" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="FadeCanvas"]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 62, 181 )
+position = Vector2( 128, 112 )
 current = true
-zoom = Vector2( 0.38, 0.38 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "start"
+anims/start = SubResource( 2 )
+
+[node name="FadeAnimator" type="AnimationPlayer" parent="."]
+anims/fade = SubResource( 3 )
+
+[node name="LightingController" type="AnimationPlayer" parent="."]
+anims/main = SubResource( 4 )
+
+[node name="SaveSelectionScreen" type="Node2D" parent="."]
+visible = false
+
+[node name="BG" type="TextureRect" parent="SaveSelectionScreen"]
+margin_right = 256.0
+margin_bottom = 224.0
+texture = ExtResource( 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="AnimatedSprite" parent="SaveSelectionScreen"]
+position = Vector2( 128, 112 )
+frames = SubResource( 5 )
+
+[node name="MenuSelector" parent="SaveSelectionScreen" instance=ExtResource( 17 )]
+position = Vector2( -73, 118 )
+
+[node name="Slot 1" type="AnimatedSprite" parent="SaveSelectionScreen"]
+position = Vector2( 100, 47 )
+frames = SubResource( 6 )
+
+[node name="NO DATA" type="Sprite" parent="SaveSelectionScreen/Slot 1"]
+position = Vector2( 48, 4 )
+texture = ExtResource( 22 )
+
+[node name="Slot 2" type="AnimatedSprite" parent="SaveSelectionScreen"]
+position = Vector2( 100, 87 )
+frames = SubResource( 6 )
+
+[node name="NO DATA" type="Sprite" parent="SaveSelectionScreen/Slot 2"]
+position = Vector2( 48, 4 )
+texture = ExtResource( 22 )
+
+[node name="Slot 3" type="AnimatedSprite" parent="SaveSelectionScreen"]
+position = Vector2( 100, 127 )
+frames = SubResource( 6 )
+
+[node name="NO DATA" type="Sprite" parent="SaveSelectionScreen/Slot 3"]
+position = Vector2( 48, 4 )
+texture = ExtResource( 22 )
+
+[node name="MenuLocation1" type="Position2D" parent="SaveSelectionScreen"]
+position = Vector2( 13, 47 )
+
+[node name="MenuLocation2" type="Position2D" parent="SaveSelectionScreen"]
+position = Vector2( 13, 88 )
+
+[node name="MenuLocation3" type="Position2D" parent="SaveSelectionScreen"]
+position = Vector2( 13, 128 )
+
+[node name="pos4 MenuLocation" type="Position2D" parent="SaveSelectionScreen"]
+position = Vector2( 13, 163 )
+
+[node name="pos5 MenuLocation" type="Position2D" parent="SaveSelectionScreen"]
+position = Vector2( 13, 187 )
+
+[node name="MenuLocation6" type="Position2D" parent="SaveSelectionScreen"]
+position = Vector2( 13, 211 )
+[connection signal="finished" from="MainAudio" to="." method="_on_MainAudio_finished"]
 
 [editable path="BabyMetroidTank"]

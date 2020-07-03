@@ -7,8 +7,11 @@ const walkSpeedCap = 150
 const runSpeedCap = 275
 const spinSpeedCap = 150
 const jumpSpeed = 72
+const morph_ball_speed = 150
 var debug_shift_count = 0
 
+const bombCooldownDefault = 0.4 * 60
+var bombCooldown = 0
 const walkSpeed = 17
 const spinDeceleration = 0.3
 
@@ -51,6 +54,8 @@ var weaponList = [
 	["super missile", 0, 0.2, 20]
 	]
 
+var upgrades = {"morph ball": "", "bomb": preload("res://src/Bomb.tscn")}
+
 const sounds = {
 	"loadmusic": preload("res://assets/sounds/loadmusic.ogg"),
 	"spin": preload("res://assets/sounds/samus/Spin.ogg"),
@@ -58,6 +63,11 @@ const sounds = {
 	"land": preload("res://assets/sounds/samus/Land.ogg"),
 	"damage": preload("res://assets/sounds/samus/Injure.ogg"),
 	"click": preload("res://assets/sounds/other/Click.ogg")
+}
+
+const animationOffset = {
+	["morph ball"]: Vector2(0, 14.691),
+	["to morph", "from morph", "crouch", "crouch turn", "crouch aim up", "crouch aim side up", "crouch aim side down"]: Vector2(0, 6.691)
 }
 
 # load the beam shot scene
@@ -160,6 +170,8 @@ func _physics_process(delta):
 					animate("crouch aim up")
 				else:
 					animate("crouch")
+			"morph ball":
+				animate("morph ball")
 
 	# apply gravity to the velocity
 	if velocity.y < fallCap and not hitstun:
@@ -257,15 +269,17 @@ func movementHandler(delt):
 						$SpriteRight.speed_scale = 1
 		
 		if Input.is_action_pressed("move_left"):
-			mode = "run"
-			
-			if velocity.x > -cap:
-				velocity.x -= walkSpeed * delt
+			if mode != "idle" or (not awaitAnimation and aiming != "up"):
+				mode = "run"
+				
+				if velocity.x > -cap:
+					velocity.x -= walkSpeed * delt
 		elif Input.is_action_pressed("move_right"):
-			mode = "run"
+			if mode != "idle" or (not awaitAnimation and aiming != "up"):
+				mode = "run"
 			
-			if velocity.x < cap:
-				velocity.x += walkSpeed * delt
+				if velocity.x < cap:
+					velocity.x += walkSpeed * delt
 		elif mode != "neutral":
 			mode = "idle"
 			velocity.x = lerp(velocity.x, 0, runDeceleration)
@@ -317,7 +331,6 @@ func movementHandler(delt):
 		if Input.is_action_pressed("move_left"):
 			if startFacing == "left" and $SpriteLeft.animation != "crouch turn":
 				mode = "run"
-				self.position.y -= 10
 				return
 			else:
 				turnAnimation("crouch turn")
@@ -325,7 +338,6 @@ func movementHandler(delt):
 		elif Input.is_action_pressed("move_right"):
 			if startFacing == "right" and $SpriteLeft.animation != "crouch turn":
 				mode = "run"
-				self.position.y -= 10
 				return
 			else:
 				turnAnimation("crouch turn")
@@ -342,11 +354,37 @@ func movementHandler(delt):
 			return
 		elif Input.is_action_just_pressed("up"):
 			mode = "idle"
-			self.position.y -= 10
+		elif Input.is_action_just_pressed("down") and "morph ball" in upgrades:
+			mode = "morph ball"
+			turnAnimation("to morph")
+			
+		lerp(velocity.x, 0, 0.9)
+			
+	elif mode == "morph ball":
+		
+		if Input.is_action_just_pressed("up") or Input.is_action_just_pressed("jump"):
+			mode = "crouch"
+			turnAnimation("from morph")
+			return
+		
+		if Input.is_action_pressed("move_left"):
+			velocity.x = -morph_ball_speed
+		elif Input.is_action_pressed("move_right"):
+			velocity.x = morph_ball_speed
+		else:
+			velocity.x = 0
+			
+	if bombCooldown > 0:
+		if bombCooldown - delt <= 0:
+			bombCooldown = 0
+		else:
+			bombCooldown -= delt
 			
 	for weapon in weaponList:
-		if weapon[1] > 0:
-			weapon[1] = max(weapon[1] - delt, 0)
+		if weapon[1] - delt <= 0:
+			weapon[1] = 0
+		else:
+			weapon[1] -= delt
 
 
 func cycleWeapon(mode=""):
@@ -387,8 +425,38 @@ func pickupHandler(type):
 
 func shot():
 	
-	if $SpriteLeft.animation == "turn standing":
+	if awaitAnimation:
 		return
+	
+	if mode == "morph ball":
+		if weaponList[selectedWeapon][0] == "power bomb":
+			pass
+		elif "bomb" in upgrades.keys():
+			if bombCooldown == 0:
+				
+				var bombcount = 0
+				
+				for child in get_parent().get_children():
+					print(child.name)
+					if "Bomb" in child.name and not "Power bomb" in child.name:
+						if not child.finished:
+							bombcount += 1
+							if bombcount >= 3:
+								return
+							
+				print(bombcount)
+							
+				bombCooldown = bombCooldownDefault
+				
+				var bomb = upgrades["bomb"].instance()
+				get_parent().add_child(bomb)
+				
+				bomb.position = self.global_position
+							
+							
+				
+		return
+			
 	
 	var weapon = weaponList[selectedWeapon]
 	
@@ -451,6 +519,7 @@ func damageHandler(type, knockback):
 		return
 
 	invincible = true
+	hitstun = true
 	
 	if knockback.x > 0:
 		knockback.x = -400
@@ -471,7 +540,8 @@ func damageHandler(type, knockback):
 		falling = false
 		spinning = false
 
-	mode = "idle"
+	if mode != "morph ball":
+		mode = "idle"
 
 
 	playSound("damage")
@@ -506,9 +576,6 @@ func death():
 		
 	$SpriteLeft.playing = false
 	$SpriteRight.playing = false
-		
-	$Hitbox.call_deferred("disabled", true)
-	$Hitbox.disabled = true
 		
 	$AnimationPlayer.play("death1")
 	yield($AnimationPlayer, "animation_finished")
@@ -569,23 +636,42 @@ func animate(anim:String, dir: String = facing):
 
 	$SpriteLeft.play(anim)
 	$SpriteRight.play(anim)
+	
+	var set = false
+	for key in animationOffset.keys():
+		if anim in key:
+			$SpriteLeft.position = animationOffset[key]
+			$SpriteRight.position = animationOffset[key]
+			set = true
+			break
+			
+	if not set:
+		$SpriteLeft.position = Vector2(0, 0)
+		$SpriteRight.position = Vector2(0, 0)
+
+
+	
+	
+	
 	setHitBox()
 	return $SpriteLeft
 
 func turnAnimation(anim):
-
+	print("a", anim)
 	var turnAnimations = {
 		"crouch turn": ["crouch", "crouch aim side down", "crouch aim side up", "crouch aim up"],		
 		"falling turn": ["falling"],
 		"turn standing": ["run", "idle", "aim side down run", "aim side up run", "aim up standing", "aim_side_down", "aim_side_up"],
 		"crouch aim side up": ["crouch aim up", "crouch aim side down"],
-		"aim_side_up": ["aim_side_down", "aim up standing"]
+		"aim_side_up": ["aim_side_down", "aim up standing"],
+		"to morph": ["crouch"],
+		"from morph": ["morph ball"]
 	}
 	
 
 	if $SpriteLeft.animation in turnAnimations[anim]:
+		print(anim)
 		awaitAnimation = true
-		print("anim")
 		animate(anim)
 
 func setHitBox():
@@ -598,8 +684,9 @@ func setHitBox():
 		"idle", "run", "turn standing", "aim_side_up", "aim_side_down", "aim side up run", "aim side down run", "aim up standing": result = [Vector2(4.51672, 23.4076), Vector2(0, 1.10183)]
 		"spin": result = [Vector2(5.52311, 13.3218), Vector2(-0.042957, 0.010602)]
 		"crouch", "crouch aim side up", "crouch aim side down", "crouch aim up": match facing:
-			"left": result = [Vector2(6.55, 17.67), Vector2(3.88, -0.957)]
-			"right": result = [Vector2(6.55, 17.67), Vector2(-3.065, -0.957)]
+			"left": result = [Vector2(6.55, 17.67), Vector2(3.88, 5.691)]
+			"right": result = [Vector2(6.55, 17.67), Vector2(-3.065, 5.691)]
+		"morph ball": result = [Vector2(6.550, 6.5), Vector2(-0.022, 15)]
 		
 	match $SpriteLeft.animation:
 		"idle": match facing:
@@ -620,7 +707,22 @@ func setHitBox():
 		"crouch": match facing:
 			"right": $BulletPosition.position = Vector2(13.251, 1)
 			"left": $BulletPosition.position = Vector2(-13.251, 1)
-		
+			
+		#verified
+		"crouch aim up": match facing:
+			"right": $BulletPosition.position = Vector2(-1.039, -29.692)
+			"left": $BulletPosition.position = Vector2(1.992, -29.692)
+			
+		#verified
+		"crouch aim side up": match facing:
+			"right": $BulletPosition.position = Vector2(18.104, -21.055)
+			"left": $BulletPosition.position = Vector2(-17.021, -22.021)
+			
+		#verified
+		"crouch aim side down": match facing:
+			"right": $BulletPosition.position = Vector2(16.997, 10.015)
+			"left": $BulletPosition.position = Vector2(-16.046, 10.015)
+			
 	if not result:
 		return
 
@@ -628,6 +730,7 @@ func setHitBox():
 	$Hitbox.position = result[1]
 
 func endHitstun():
+	hitstun = false
 	velocity = Vector2(0, 0)
 
 func _on_IFrameTimer_timeout():

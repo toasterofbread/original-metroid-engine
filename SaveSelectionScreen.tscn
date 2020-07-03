@@ -1,0 +1,71 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://assets/other/title screen/save selection/Text with save.png" type="Texture" id=1]
+[ext_resource path="res://assets/other/title screen/save selection/helmet/03.png" type="Texture" id=2]
+[ext_resource path="res://src/MenuSelector.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/other/title screen/save selection/helmet/01.png" type="Texture" id=4]
+[ext_resource path="res://assets/other/title screen/save selection/helmet/07.png" type="Texture" id=5]
+[ext_resource path="res://assets/other/title screen/save selection/helmet/05.png" type="Texture" id=6]
+[ext_resource path="res://assets/other/title screen/save selection/helmet/06.png" type="Texture" id=7]
+[ext_resource path="res://assets/other/title screen/save selection/Text.png" type="Texture" id=8]
+[ext_resource path="res://assets/other/title screen/save selection/helmet/02.png" type="Texture" id=9]
+[ext_resource path="res://assets/other/title screen/save selection/helmet/08.png" type="Texture" id=10]
+[ext_resource path="res://assets/other/title screen/save selection/helmet/04.png" type="Texture" id=11]
+[ext_resource path="res://assets/other/title screen/save selection/Background.png" type="Texture" id=12]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 8 ) ],
+"loop": false,
+"name": "default",
+"speed": 0.0
+} ]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 9 ), ExtResource( 2 ), ExtResource( 11 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 10 ) ],
+"loop": false,
+"name": "default",
+"speed": 8.0
+} ]
+
+[node name="SaveSelectionScreen" type="Node2D"]
+
+[node name="BG" type="TextureRect" parent="."]
+margin_right = 256.0
+margin_bottom = 224.0
+texture = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="AnimatedSprite" parent="."]
+position = Vector2( 128, 112 )
+frames = SubResource( 3 )
+
+[node name="MenuSelector" parent="." instance=ExtResource( 3 )]
+position = Vector2( -73, 118 )
+
+[node name="Slot 1" type="AnimatedSprite" parent="."]
+position = Vector2( 102, 47 )
+frames = SubResource( 1 )
+
+[node name="MenuLocation1" type="Position2D" parent="."]
+position = Vector2( 13, 47 )
+
+[node name="Slot 2" type="AnimatedSprite" parent="."]
+position = Vector2( 102, 88 )
+frames = SubResource( 1 )
+
+[node name="MenuLocation2" type="Position2D" parent="."]
+position = Vector2( 13, 88 )
+
+[node name="Slot 3" type="AnimatedSprite" parent="."]
+position = Vector2( 102, 128 )
+frames = SubResource( 1 )
+
+[node name="MenuLocation3" type="Position2D" parent="."]
+position = Vector2( 13, 128 )
+
+[node name="MenuLocation4" type="Position2D" parent="."]
+position = Vector2( 13, 211 )
