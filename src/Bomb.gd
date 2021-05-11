@@ -5,11 +5,15 @@ var samus: KinematicBody2D
 var knockback = false
 var finished = false
 
+var type: String
+
+const bombSound = preload("res://assets/sounds/Bomb.ogg")
+
 func _ready():
-	for child in get_parent().get_children():
-		if child.name == "Samus":
-			samus = child
-			break
+	samus = get_parent().get_node("Samus")
+	
+	$AnimatedSprite.animation = type
+
 			
 
 func _physics_process(_delta):
@@ -18,14 +22,12 @@ func _physics_process(_delta):
 		
 		for child in get_parent().get_children():
 			if overlaps_body(child):
-				if child.name == "Samus":
-					if child.mode == "morph ball":
-						samus.velocity.y -= 30
-
-				else:
+				if child == samus:
+					if samus.mode == "morph ball":
+						samus.velocity.y = -175
+				elif child.get_class() != "TileMap":
 					child.handleShot("bomb")
-		
-		
+
 
 	
 
@@ -33,21 +35,29 @@ func _physics_process(_delta):
 func _on_AnimatedSprite_animation_finished():
 	if wait == 0:
 		$AnimatedSprite.speed_scale = 1.75
-	elif wait == -3:
+	elif wait == -2:
 		
-		knockback = true
+		if type == "bomb":
+			knockback = true
 		
-		$AnimatedSprite.animation = "explosion"
-		
-		$AudioStreamPlayer.play()
-		yield($AnimatedSprite, "animation_finished")
-		
-		knockback = false
-		finished = true
-		$AnimatedSprite.visible = false
-		
-		yield($AudioStreamPlayer, "finished")
-		queue_free()
+			$AnimatedSprite.animation = "explosion"
+			
+			$AudioStreamPlayer.stream = bombSound
+			$AudioStreamPlayer.play()
+			yield($AnimatedSprite, "animation_finished")
+			
+			knockback = false
+			finished = true
+			$AnimatedSprite.visible = false
+			
+			yield($AudioStreamPlayer, "finished")
+			queue_free()
+		elif type == "power bomb":
+			knockback = true
+			$AnimationPlayer.play("power bomb")
+			yield($AnimationPlayer, "animation_finished")
+			queue_free()
+			
 
 	wait -= 1
 		

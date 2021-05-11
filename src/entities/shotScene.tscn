@@ -131,32 +131,43 @@ func killSelf():
 
 func _on_Standard_shot_body_entered(body):
 	
+	print(body.collision_layer)
+	
 	if beamType == \"super missile\":
 		get_parent().get_node(\"Samus/ScreenShake\").shakeScreen(1, 5)
 	
 	# play explosion animation and kill bullet when it collides with a world tile
-	if body.name == \"LevelTileMap\":
-		direction = \"stop\"
-		
-		self.rotation_degrees = 0
-		
-		$Hitbox.shape.height = 1
-		if beamType == \"standard\":
-			$AnimatedSprite.play(\"small explosion\")
-			
-			$Hitbox.shape.radius = 16
-		else:
-			$AnimatedSprite.play(\"large explosion\")
-		
-			$Hitbox.shape.radius = 30
-		yield($AnimatedSprite, \"animation_finished\")
-	else:
-		body.handleShot(beamType)
-		
-	
-		
-	killSelf()
+	if body.collision_layer == 8:
+		anim()
 
+	else:
+		if body.handleShot(beamType) is String:
+			if \"explode\":
+				anim()
+			else:
+				killSelf()
+		else:
+			killSelf()
+
+	
+
+func anim():
+	direction = \"stop\"
+		
+	self.rotation_degrees = 0
+	
+	$Hitbox.shape.height = 1
+	if beamType == \"standard\":
+		$AnimatedSprite.play(\"small explosion\")
+		
+		$Hitbox.shape.radius = 16
+	else:
+		$AnimatedSprite.play(\"large explosion\")
+	
+		$Hitbox.shape.radius = 30
+	yield($AnimatedSprite, \"animation_finished\")
+	
+	killSelf()
 "
 
 [sub_resource type="AtlasTexture" id=2]
@@ -182,19 +193,19 @@ region = Rect2( 64, 0, 16, 16 )
 [sub_resource type="SpriteFrames" id=7]
 resource_local_to_scene = true
 animations = [ {
-"frames": [ ExtResource( 4 ) ],
-"loop": false,
-"name": "super missile",
-"speed": 0.0
-}, {
 "frames": [ ExtResource( 5 ) ],
 "loop": false,
 "name": "missile",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 3 ) ],
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
 "loop": false,
-"name": "standard",
+"name": "small explosion",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": false,
+"name": "super missile",
 "speed": 0.0
 }, {
 "frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 11 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
@@ -202,10 +213,10 @@ animations = [ {
 "name": "large explosion",
 "speed": 12.0
 }, {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"frames": [ ExtResource( 3 ) ],
 "loop": false,
-"name": "small explosion",
-"speed": 15.0
+"name": "standard",
+"speed": 0.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=8]
@@ -213,8 +224,8 @@ resource_local_to_scene = true
 radius = 9.0
 height = 10.0
 
-[node name="Standard shot" type="Area2D"]
-z_index = -2
+[node name="shotScene" type="Area2D"]
+z_index = 11
 collision_layer = 2
 collision_mask = 12
 script = SubResource( 1 )
@@ -233,5 +244,6 @@ scale = Vector2( 0.407, 0.407 )
 shape = SubResource( 8 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
 [connection signal="body_entered" from="." to="." method="_on_Standard_shot_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_screen_exited"]

@@ -22,7 +22,7 @@ func _physics_process(_delta):
 				1: slot = $"SaveSelectionScreen/Slot 2"
 				2: slot = $"SaveSelectionScreen/Slot 3"
 				
-				3: get_tree().change_scene("res://src/TitleScreen.tscn")
+				3: get_tree().change_scene("res://src/levels/Level01.tscn")
 				
 			if slot:
 				$SelectAudio.stream = spinsound

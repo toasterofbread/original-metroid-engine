@@ -1,0 +1,266 @@
+[gd_scene load_steps=31 format=2]
+
+[ext_resource path="res://src/Door.gd" type="Script" id=1]
+[ext_resource path="res://assets/other/doors/beam/1.png" type="Texture" id=2]
+[ext_resource path="res://assets/other/doors/main.png" type="Texture" id=3]
+[ext_resource path="res://assets/other/doors/beam/3.png" type="Texture" id=4]
+[ext_resource path="res://assets/other/doors/beam/2.png" type="Texture" id=5]
+[ext_resource path="res://assets/other/doors/beam/4.png" type="Texture" id=6]
+[ext_resource path="res://src/DoorCover.gd" type="Script" id=7]
+[ext_resource path="res://assets/other/doors/power bomb/2.png" type="Texture" id=9]
+[ext_resource path="res://assets/other/doors/locked/1.png" type="Texture" id=10]
+[ext_resource path="res://assets/other/doors/power bomb/3.png" type="Texture" id=11]
+[ext_resource path="res://assets/other/doors/super missile/1.png" type="Texture" id=12]
+[ext_resource path="res://assets/other/doors/missile/1.png" type="Texture" id=13]
+[ext_resource path="res://assets/other/doors/power bomb/4.png" type="Texture" id=14]
+[ext_resource path="res://assets/other/doors/super missile/4.png" type="Texture" id=15]
+[ext_resource path="res://assets/other/doors/locked/3.png" type="Texture" id=16]
+[ext_resource path="res://assets/other/doors/missile/2.png" type="Texture" id=17]
+[ext_resource path="res://assets/other/doors/super missile/3.png" type="Texture" id=18]
+[ext_resource path="res://assets/other/doors/locked/2.png" type="Texture" id=19]
+[ext_resource path="res://assets/other/doors/super missile/2.png" type="Texture" id=20]
+[ext_resource path="res://assets/other/doors/locked/4.png" type="Texture" id=21]
+[ext_resource path="res://assets/other/doors/power bomb/1.png" type="Texture" id=22]
+[ext_resource path="res://assets/other/doors/missile/3.png" type="Texture" id=23]
+[ext_resource path="res://assets/other/doors/missile/4.png" type="Texture" id=24]
+[ext_resource path="res://assets/sounds/world/Doorclose.ogg" type="AudioStream" id=25]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 22 ), ExtResource( 9 ), ExtResource( 11 ), ExtResource( 14 ) ],
+"loop": false,
+"name": "power bomb",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 17 ), ExtResource( 23 ), ExtResource( 24 ) ],
+"loop": false,
+"name": "missile",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 20 ), ExtResource( 18 ), ExtResource( 15 ) ],
+"loop": false,
+"name": "super missile",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 21 ), ExtResource( 16 ), ExtResource( 19 ), ExtResource( 10 ) ],
+"loop": false,
+"name": "locked close",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 19 ), ExtResource( 16 ), ExtResource( 21 ) ],
+"loop": false,
+"name": "locked",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 15 ), ExtResource( 18 ), ExtResource( 20 ), ExtResource( 12 ) ],
+"loop": false,
+"name": "super missile close",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 6 ) ],
+"loop": false,
+"name": "beam",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 24 ), ExtResource( 23 ), ExtResource( 17 ), ExtResource( 13 ) ],
+"loop": false,
+"name": "missile close",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 22 ) ],
+"loop": false,
+"name": "power bomb close",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 2 ) ],
+"loop": false,
+"name": "beam close",
+"speed": 20.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 4, 30 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 2, 26 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "fade from black"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/ColorRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/ColorRect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+tracks/0/type = "value"
+tracks/0/path = NodePath("DoorCover/AnimatedSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("DoorCover/AnimatedSprite:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("DoorCover/AnimatedSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/3/type = "audio"
+tracks/3/path = NodePath("DoorCover/AudioStreamPlayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 25 )
+} ],
+"times": PoolRealArray( 0 )
+}
+
+[node name="Door" type="StaticBody2D"]
+pause_mode = 2
+collision_layer = 8
+collision_mask = 3
+script = ExtResource( 1 )
+
+[node name="GhostDoor" type="Sprite" parent="."]
+visible = false
+position = Vector2( -24, 0 )
+texture = ExtResource( 3 )
+flip_h = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="DoorCover" type="StaticBody2D" parent="."]
+collision_layer = 12
+collision_mask = 0
+script = ExtResource( 7 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="DoorCover"]
+position = Vector2( 16, 0 )
+z_index = 99
+frames = SubResource( 1 )
+animation = "super missile close"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorCover"]
+position = Vector2( 16, 0 )
+shape = SubResource( 2 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="DoorCover"]
+stream = ExtResource( 25 )
+
+[node name="Timer" type="Timer" parent="DoorCover"]
+wait_time = 0.04
+
+[node name="DoorMain" type="Area2D" parent="."]
+z_index = 10
+collision_layer = 8
+
+[node name="Sprite" type="Sprite" parent="DoorMain"]
+z_index = 99
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorMain"]
+modulate = Color( 0.901961, 0.109804, 0.992157, 1 )
+position = Vector2( 1, 0 )
+z_index = 4096
+shape = SubResource( 3 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+build_mode = 1
+polygon = PoolVector2Array( 12, 32, -12, 32, -12, -32, 12, -32, -12, -32, -12, 32 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+"anims/fade from black" = SubResource( 4 )
+"anims/fade to black" = SubResource( 5 )
+"anims/wait then close" = SubResource( 6 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="body_entered" from="DoorMain" to="." method="_on_DoorMain_body_entered"]

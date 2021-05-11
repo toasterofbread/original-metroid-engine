@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://src/Bomb.gd" type="Script" id=1]
 [ext_resource path="res://assets/samus/bomb/3.png" type="Texture" id=2]
@@ -9,23 +9,132 @@
 [ext_resource path="res://assets/samus/bomb/explosion/5.png" type="Texture" id=7]
 [ext_resource path="res://assets/samus/bomb/explosion/1.png" type="Texture" id=8]
 [ext_resource path="res://assets/samus/bomb/explosion/3.png" type="Texture" id=9]
-[ext_resource path="res://assets/sounds/Bomb.ogg" type="AudioStream" id=10]
+[ext_resource path="res://assets/samus/bomb/power/explosion.png" type="Texture" id=11]
+[ext_resource path="res://assets/sounds/Power Bomb.ogg" type="AudioStream" id=12]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ) ],
+"frames": [  ],
 "loop": true,
-"name": "default",
-"speed": 10.0
+"name": "power bomb",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 8 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 7 ) ],
 "loop": false,
 "name": "explosion",
 "speed": 20.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "bomb",
+"speed": 10.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 4.11452, 3.83566 )
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 7.07107
+
+[sub_resource type="Animation" id=4]
+length = 2.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.8, 1.1, 1.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0.905882, 0.411765, 0.54902 ), Color( 1, 0.905882, 0.411765, 0.54902 ), Color( 0.913725, 0.901961, 0.835294, 0.54902 ), Color( 1, 0.905882, 0.411765, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.02, 0.02 ), Vector2( 0.8, 0.8 ) ]
+}
+tracks/3/type = "audio"
+tracks/3/path = NodePath("AudioStreamPlayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 12 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CollisionShape2D:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 0.7 ), Vector2( 40, 30 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CollisionShape2D:shape")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ SubResource( 3 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("CollisionShape2D:shape:radius")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 7.07107 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("CollisionShape2D:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 1.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
 [node name="Bomb" type="Area2D"]
 collision_layer = 2
@@ -35,12 +144,21 @@ script = ExtResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 z_index = 100
 frames = SubResource( 1 )
-frame = 2
+animation = "bomb"
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 10 )
+stream = ExtResource( 12 )
+
+[node name="Sprite" type="Sprite" parent="."]
+visible = false
+modulate = Color( 1, 0.905882, 0.411765, 0.54902 )
+scale = Vector2( 0.02, 0.02 )
+texture = ExtResource( 11 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+"anims/power bomb" = SubResource( 4 )
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]

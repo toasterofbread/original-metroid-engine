@@ -2,6 +2,10 @@ extends KinematicBody2D
 
 export var playFanfare = false
 export var outputVelocity = false
+export var camera_left_limit = -10000000
+export var camera_top_limit = -10000000
+export var camera_right_limit = 10000000
+export var camera_bottom_limit = 10000000
 
 const walkSpeedCap = 150
 const runSpeedCap = 275
@@ -15,7 +19,7 @@ var bombCooldown = 0
 const walkSpeed = 17
 const spinDeceleration = 0.3
 
-const runDeceleration = 0.3
+const runDeceleration = 0.4
 
 const jumpPower = 22
 const jumpCap = 270
@@ -29,13 +33,12 @@ var invincible = false
 var run_physics = false
 var velocity = Vector2()
 var hitstun = false
-var direction = ""
 var facing = "right"
 var fallAnim = false
 var spinChannel = ""
 var aiming = "none"
 
-export var health = 99
+export var energy = 99
 var selectedWeapon = 0
 var audioChannels = []
 
@@ -51,7 +54,8 @@ var weaponList = [
 	
 	["standard", 0, 0.35, ""], 
 	["missile", 0, 0.1, 20],
-	["super missile", 0, 0.2, 20]
+	["super missile", 0, 0.2, 20],
+	["power bomb", 0, 0, 10]
 	]
 
 var upgrades = {"morph ball": "", "bomb": preload("res://src/Bomb.tscn")}
@@ -74,6 +78,13 @@ const animationOffset = {
 const shotScene = preload("res://src/entities/shotScene.tscn")
 
 func _ready():
+
+	loadData()
+	
+	$Camera2D.limit_left = camera_left_limit
+	$Camera2D.limit_top = camera_top_limit
+	$Camera2D.limit_right = camera_right_limit
+	$Camera2D.limit_bottom = camera_bottom_limit
 
 	print($Hitbox.get_shape().get_extents(), " / ", $Hitbox.position)
 	setHealth(0)
@@ -105,7 +116,7 @@ func _ready():
 	run_physics = true
 		
 func _physics_process(delta):
-	
+
 	var delt = delta * 59.999997
 	
 	if outputVelocity:
@@ -140,9 +151,9 @@ func _physics_process(delta):
 		match mode:
 			"run": 
 				if aiming == "side up":
-					animate("aim side up run")
+					animate("aim side up run", $SpriteLeft.frame)
 				elif aiming == "side down":
-					animate("aim side down run")
+					animate("aim side down run", $SpriteLeft.frame)
 				else:
 					animate("run")
 			"idle": 
@@ -328,21 +339,29 @@ func movementHandler(delt):
 			
 	elif mode == "crouch":
 		
+		velocity.x = 0
+		
 		if Input.is_action_pressed("move_left"):
 			if startFacing == "left" and $SpriteLeft.animation != "crouch turn":
-				mode = "run"
-				return
+				if not $CeilingDetector.is_colliding():
+					mode = "run"
+					return
 			else:
 				turnAnimation("crouch turn")
 				
 		elif Input.is_action_pressed("move_right"):
 			if startFacing == "right" and $SpriteLeft.animation != "crouch turn":
-				mode = "run"
-				return
+				if not $CeilingDetector.is_colliding():
+					mode = "run"
+					return
 			else:
 				turnAnimation("crouch turn")
 			
 		elif Input.is_action_just_pressed("jump"):
+			
+			if $CeilingDetector.is_colliding():
+				return
+			
 			mode = "jump"
 			falling = false
 			velocity.y -= jumpPower
@@ -353,16 +372,20 @@ func movementHandler(delt):
 
 			return
 		elif Input.is_action_just_pressed("up"):
+			if $CeilingDetector.is_colliding():
+				return
 			mode = "idle"
 		elif Input.is_action_just_pressed("down") and "morph ball" in upgrades:
 			mode = "morph ball"
 			turnAnimation("to morph")
 			
-		lerp(velocity.x, 0, 0.9)
+		
 			
 	elif mode == "morph ball":
 		
-		if Input.is_action_just_pressed("up") or Input.is_action_just_pressed("jump"):
+		if (Input.is_action_just_pressed("up") or Input.is_action_just_pressed("jump")) and not $CeilingDetector.is_colliding():
+			
+			
 			mode = "crouch"
 			turnAnimation("from morph")
 			return
@@ -430,7 +453,26 @@ func shot():
 	
 	if mode == "morph ball":
 		if weaponList[selectedWeapon][0] == "power bomb":
-			pass
+			if bombCooldown == 0:
+				
+				var bombcount = 0
+				
+				for child in get_parent().get_children():
+					print(child.name)
+					if "Bomb" in child.name and not "Power bomb" in child.name:
+						if not child.finished:
+							bombcount += 1
+							if bombcount >= 3:
+								return
+							
+				print(bombcount)
+							
+				bombCooldown = bombCooldownDefault
+				
+				var bomb = upgrades["bomb"].instance()
+				bomb.type = "power bomb"
+				get_parent().add_child(bomb)
+				bomb.position = $SpriteLeft.global_position
 		elif "bomb" in upgrades.keys():
 			if bombCooldown == 0:
 				
@@ -449,9 +491,9 @@ func shot():
 				bombCooldown = bombCooldownDefault
 				
 				var bomb = upgrades["bomb"].instance()
+				bomb.type = "bomb"
 				get_parent().add_child(bomb)
-				
-				bomb.position = self.global_position
+				bomb.position = $SpriteLeft.global_position
 							
 							
 				
@@ -554,15 +596,15 @@ func damageHandler(type, knockback):
 			
 func setHealth(hlt):
 	
-	health += hlt
+	energy += hlt
 	
-	if health <= 0:
+	if energy <= 0:
 		death()
 		return "death"
 
 	for child in get_parent().get_children():
 		if child.name == "HUD":
-			child.set_amount("energy", health)
+			child.set_amount("energy", energy)
 
 func death():
 	run_physics = false
@@ -616,7 +658,7 @@ func _on_AnimatedSprite_animation_finished():
 	awaitAnimation = false
 
 
-func animate(anim:String, dir: String = facing):
+func animate(anim:String, frame:int = 0, dir: String = facing):
 	
 	if [anim, facing] == animCache:
 		return
@@ -637,6 +679,9 @@ func animate(anim:String, dir: String = facing):
 	$SpriteLeft.play(anim)
 	$SpriteRight.play(anim)
 	
+	$SpriteLeft.frame = frame
+	$SpriteRight.frame = frame
+	
 	var set = false
 	for key in animationOffset.keys():
 		if anim in key:
@@ -650,14 +695,25 @@ func animate(anim:String, dir: String = facing):
 		$SpriteRight.position = Vector2(0, 0)
 
 
-	
+	if "morph" in anim or "crouch" in anim:
+		$CeilingDetector.enabled = true
+
+		if "morph" in anim and anim != "from morph":
+			$CeilingDetector.position = Vector2(0, 6.691)
+			$CeilingDetector.cast_to = Vector2(0, 16)
+
+		elif "crouch" in anim or anim == "from morph":
+			$CeilingDetector.position = Vector2(0, -9.309)
+			$CeilingDetector.cast_to = Vector2(0, 11)
+	else:
+		$CeilingDetector.enabled = false
+
 	
 	
 	setHitBox()
 	return $SpriteLeft
 
 func turnAnimation(anim):
-	print("a", anim)
 	var turnAnimations = {
 		"crouch turn": ["crouch", "crouch aim side down", "crouch aim side up", "crouch aim up"],		
 		"falling turn": ["falling"],
@@ -736,3 +792,35 @@ func endHitstun():
 func _on_IFrameTimer_timeout():
 	$IFrameTimer.stop()
 	invincible = false
+
+func saveData():
+	
+	GLOBAL.samusData = {
+		"energy": energy,
+		"upgrades": upgrades,
+		"weaponList": weaponList,
+		"selectedWeapon": selectedWeapon,
+		"velocity": velocity,
+		"mode": mode,
+		"spinning": spinning,
+		"falling": falling,
+		"facing": facing
+		
+	}
+	
+func loadData():
+	
+	var data = GLOBAL.samusData
+	
+	if not data is Dictionary:
+		return
+	
+	energy = data["energy"]
+	upgrades = data["upgrades"]
+	weaponList = data["weaponList"]
+	selectedWeapon = data["selectedWeapon"]
+	velocity = data["velocity"]
+	mode = data["mode"]	
+	spinning = data["spinning"]
+	falling = data["falling"]
+	facing = data["facing"]

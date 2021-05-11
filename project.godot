@@ -15,10 +15,14 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Metroid Engine"
+config/name="Super Metroid style engine"
 config/description="A custom Metroid engine based on Super Metroid"
 run/main_scene="res://src/levels/Level01.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+GLOBAL="*res://src/GLOBAL.gd"
 
 [display]
 

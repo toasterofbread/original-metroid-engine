@@ -132,222 +132,6 @@ shader = ExtResource( 22 )
 shader_param/active = false
 shader_param/offset = 0.9
 
-[sub_resource type="AtlasTexture" id=25]
-atlas = ExtResource( 107 )
-region = Rect2( 0, 0, 48, 45 )
-
-[sub_resource type="AtlasTexture" id=26]
-atlas = ExtResource( 107 )
-region = Rect2( 48, 0, 48, 45 )
-
-[sub_resource type="AtlasTexture" id=27]
-atlas = ExtResource( 107 )
-region = Rect2( 96, 0, 48, 45 )
-
-[sub_resource type="AtlasTexture" id=28]
-atlas = ExtResource( 107 )
-region = Rect2( 144, 0, 48, 45 )
-
-[sub_resource type="AtlasTexture" id=29]
-atlas = ExtResource( 106 )
-region = Rect2( 0, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=30]
-atlas = ExtResource( 106 )
-region = Rect2( 32, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=31]
-atlas = ExtResource( 106 )
-region = Rect2( 64, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=32]
-atlas = ExtResource( 106 )
-region = Rect2( 96, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=33]
-atlas = ExtResource( 106 )
-region = Rect2( 128, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=34]
-atlas = ExtResource( 106 )
-region = Rect2( 160, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=35]
-atlas = ExtResource( 106 )
-region = Rect2( 192, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=36]
-atlas = ExtResource( 106 )
-region = Rect2( 224, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=37]
-atlas = ExtResource( 105 )
-region = Rect2( 0, 0, 48, 44 )
-
-[sub_resource type="AtlasTexture" id=38]
-atlas = ExtResource( 105 )
-region = Rect2( 48, 0, 48, 44 )
-
-[sub_resource type="AtlasTexture" id=39]
-atlas = ExtResource( 105 )
-region = Rect2( 96, 0, 48, 44 )
-
-[sub_resource type="AtlasTexture" id=40]
-atlas = ExtResource( 105 )
-region = Rect2( 144, 0, 48, 44 )
-
-[sub_resource type="AtlasTexture" id=41]
-atlas = ExtResource( 105 )
-region = Rect2( 192, 0, 48, 44 )
-
-[sub_resource type="AtlasTexture" id=42]
-atlas = ExtResource( 105 )
-region = Rect2( 240, 0, 48, 44 )
-
-[sub_resource type="AtlasTexture" id=43]
-atlas = ExtResource( 105 )
-region = Rect2( 288, 0, 48, 44 )
-
-[sub_resource type="AtlasTexture" id=44]
-atlas = ExtResource( 105 )
-region = Rect2( 336, 0, 48, 44 )
-
-[sub_resource type="AtlasTexture" id=45]
-atlas = ExtResource( 105 )
-region = Rect2( 384, 0, 48, 44 )
-
-[sub_resource type="AtlasTexture" id=46]
-atlas = ExtResource( 105 )
-region = Rect2( 432, 0, 48, 44 )
-
-[sub_resource type="SpriteFrames" id=47]
-animations = [ {
-"frames": [ SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
-"loop": true,
-"name": "idle",
-"speed": 4.0
-}, {
-"frames": [ ExtResource( 43 ), ExtResource( 69 ), ExtResource( 66 ), ExtResource( 23 ), ExtResource( 76 ), ExtResource( 77 ), ExtResource( 80 ), ExtResource( 81 ), ExtResource( 82 ), ExtResource( 36 ) ],
-"loop": true,
-"name": "aim side up run",
-"speed": 20.0
-}, {
-"frames": [ ExtResource( 102 ) ],
-"loop": false,
-"name": "falling",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 10 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 5 ) ],
-"loop": false,
-"name": "turn standing",
-"speed": 40.0
-}, {
-"frames": [ SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ) ],
-"loop": true,
-"name": "spin",
-"speed": 20.0
-}, {
-"frames": [ ExtResource( 68 ) ],
-"loop": false,
-"name": "aim_side_up",
-"speed": 20.0
-}, {
-"frames": [ ExtResource( 9 ) ],
-"loop": false,
-"name": "neutral",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 95 ) ],
-"loop": false,
-"name": "death_1",
-"speed": 2.0
-}, {
-"frames": [ SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ) ],
-"loop": true,
-"name": "run",
-"speed": 20.0
-}, {
-"frames": [ ExtResource( 97 ), ExtResource( 93 ), ExtResource( 91 ), ExtResource( 99 ), ExtResource( 94 ), ExtResource( 92 ), ExtResource( 96 ), ExtResource( 96 ), ExtResource( 96 ) ],
-"loop": false,
-"name": "death_2",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 98 ) ],
-"loop": true,
-"name": "death_0",
-"speed": 1.0
-}, {
-"frames": [ ExtResource( 71 ) ],
-"loop": false,
-"name": "aim_side_down",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 24 ), ExtResource( 103 ), ExtResource( 102 ) ],
-"loop": false,
-"name": "falling turn",
-"speed": 12.0
-}, {
-"frames": [ ExtResource( 101 ) ],
-"loop": false,
-"name": "rising",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 104 ), ExtResource( 100 ), ExtResource( 101 ) ],
-"loop": false,
-"name": "rising turn",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 65 ) ],
-"loop": false,
-"name": "aim up standing",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 83 ), ExtResource( 79 ), ExtResource( 64 ), ExtResource( 70 ), ExtResource( 86 ), ExtResource( 85 ), ExtResource( 87 ), ExtResource( 88 ), ExtResource( 90 ), ExtResource( 89 ) ],
-"loop": true,
-"name": "aim side down run",
-"speed": 20.0
-}, {
-"frames": [ ExtResource( 58 ), ExtResource( 57 ), ExtResource( 56 ) ],
-"loop": false,
-"name": "crouch turn",
-"speed": 35.0
-}, {
-"frames": [ ExtResource( 63 ), ExtResource( 62 ), ExtResource( 75 ) ],
-"loop": true,
-"name": "crouch",
-"speed": 4.0
-}, {
-"frames": [ ExtResource( 74 ) ],
-"loop": false,
-"name": "crouch aim side down",
-"speed": 20.0
-}, {
-"frames": [ ExtResource( 67 ) ],
-"loop": false,
-"name": "crouch aim up",
-"speed": 20.0
-}, {
-"frames": [ ExtResource( 73 ) ],
-"loop": false,
-"name": "crouch aim side up",
-"speed": 20.0
-}, {
-"frames": [ ExtResource( 123 ), ExtResource( 125 ) ],
-"loop": false,
-"name": "from morph",
-"speed": 50.0
-}, {
-"frames": [ ExtResource( 109 ), ExtResource( 117 ), ExtResource( 115 ), ExtResource( 118 ), ExtResource( 120 ), ExtResource( 119 ), ExtResource( 121 ), ExtResource( 122 ) ],
-"loop": true,
-"name": "morph ball",
-"speed": 22.0
-}, {
-"frames": [ ExtResource( 125 ), ExtResource( 123 ) ],
-"loop": true,
-"name": "to morph",
-"speed": 50.0
-} ]
-
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 48, 45 )
@@ -564,6 +348,222 @@ animations = [ {
 "speed": 50.0
 } ]
 
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 107 )
+region = Rect2( 0, 0, 48, 45 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 107 )
+region = Rect2( 48, 0, 48, 45 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 107 )
+region = Rect2( 96, 0, 48, 45 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 107 )
+region = Rect2( 144, 0, 48, 45 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 106 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 106 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 106 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 106 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 106 )
+region = Rect2( 128, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 106 )
+region = Rect2( 160, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 106 )
+region = Rect2( 192, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 106 )
+region = Rect2( 224, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 105 )
+region = Rect2( 0, 0, 48, 44 )
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 105 )
+region = Rect2( 48, 0, 48, 44 )
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 105 )
+region = Rect2( 96, 0, 48, 44 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 105 )
+region = Rect2( 144, 0, 48, 44 )
+
+[sub_resource type="AtlasTexture" id=41]
+atlas = ExtResource( 105 )
+region = Rect2( 192, 0, 48, 44 )
+
+[sub_resource type="AtlasTexture" id=42]
+atlas = ExtResource( 105 )
+region = Rect2( 240, 0, 48, 44 )
+
+[sub_resource type="AtlasTexture" id=43]
+atlas = ExtResource( 105 )
+region = Rect2( 288, 0, 48, 44 )
+
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 105 )
+region = Rect2( 336, 0, 48, 44 )
+
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 105 )
+region = Rect2( 384, 0, 48, 44 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 105 )
+region = Rect2( 432, 0, 48, 44 )
+
+[sub_resource type="SpriteFrames" id=47]
+animations = [ {
+"frames": [ SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
+"loop": true,
+"name": "idle",
+"speed": 4.0
+}, {
+"frames": [ ExtResource( 43 ), ExtResource( 69 ), ExtResource( 66 ), ExtResource( 23 ), ExtResource( 76 ), ExtResource( 77 ), ExtResource( 80 ), ExtResource( 81 ), ExtResource( 82 ), ExtResource( 36 ) ],
+"loop": true,
+"name": "aim side up run",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 102 ) ],
+"loop": false,
+"name": "falling",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 5 ) ],
+"loop": false,
+"name": "turn standing",
+"speed": 40.0
+}, {
+"frames": [ SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ) ],
+"loop": true,
+"name": "spin",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 68 ) ],
+"loop": false,
+"name": "aim_side_up",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": false,
+"name": "neutral",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 95 ) ],
+"loop": false,
+"name": "death_1",
+"speed": 2.0
+}, {
+"frames": [ SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ) ],
+"loop": true,
+"name": "run",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 97 ), ExtResource( 93 ), ExtResource( 91 ), ExtResource( 99 ), ExtResource( 94 ), ExtResource( 92 ), ExtResource( 96 ), ExtResource( 96 ), ExtResource( 96 ) ],
+"loop": false,
+"name": "death_2",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 98 ) ],
+"loop": true,
+"name": "death_0",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 71 ) ],
+"loop": false,
+"name": "aim_side_down",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 24 ), ExtResource( 103 ), ExtResource( 102 ) ],
+"loop": false,
+"name": "falling turn",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 101 ) ],
+"loop": false,
+"name": "rising",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 104 ), ExtResource( 100 ), ExtResource( 101 ) ],
+"loop": false,
+"name": "rising turn",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 65 ) ],
+"loop": false,
+"name": "aim up standing",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 83 ), ExtResource( 79 ), ExtResource( 64 ), ExtResource( 70 ), ExtResource( 86 ), ExtResource( 85 ), ExtResource( 87 ), ExtResource( 88 ), ExtResource( 90 ), ExtResource( 89 ) ],
+"loop": true,
+"name": "aim side down run",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 58 ), ExtResource( 57 ), ExtResource( 56 ) ],
+"loop": false,
+"name": "crouch turn",
+"speed": 35.0
+}, {
+"frames": [ ExtResource( 63 ), ExtResource( 62 ), ExtResource( 75 ) ],
+"loop": true,
+"name": "crouch",
+"speed": 4.0
+}, {
+"frames": [ ExtResource( 74 ) ],
+"loop": false,
+"name": "crouch aim side down",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 67 ) ],
+"loop": false,
+"name": "crouch aim up",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 73 ) ],
+"loop": false,
+"name": "crouch aim side up",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 123 ), ExtResource( 125 ) ],
+"loop": false,
+"name": "from morph",
+"speed": 50.0
+}, {
+"frames": [ ExtResource( 109 ), ExtResource( 117 ), ExtResource( 115 ), ExtResource( 118 ), ExtResource( 120 ), ExtResource( 119 ), ExtResource( 121 ), ExtResource( 122 ) ],
+"loop": true,
+"name": "morph ball",
+"speed": 22.0
+}, {
+"frames": [ ExtResource( 125 ), ExtResource( 123 ) ],
+"loop": true,
+"name": "to morph",
+"speed": 50.0
+} ]
+
 [sub_resource type="RectangleShape2D" id=48]
 extents = Vector2( 6.55014, 8.07782 )
 
@@ -710,17 +710,19 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="SpriteRight" type="AnimatedSprite" parent="."]
-material = SubResource( 1 )
-frames = SubResource( 47 )
-animation = "idle"
-playing = true
-
 [node name="SpriteLeft" type="AnimatedSprite" parent="."]
 material = SubResource( 1 )
-position = Vector2( 0, 6.69102 )
 frames = SubResource( 24 )
+animation = "idle"
+frame = 2
+playing = true
+
+[node name="SpriteRight" type="AnimatedSprite" parent="."]
+material = SubResource( 1 )
+position = Vector2( 0, 6.69102 )
+frames = SubResource( 47 )
 animation = "crouch"
+frame = 1
 playing = true
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
@@ -734,10 +736,8 @@ position = Vector2( -16.0464, 10.0152 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 visible = false
+z_index = -1
 current = true
-zoom = Vector2( 1.2, 1.2 )
-limit_left = 0
-limit_bottom = 0
 smoothing_speed = 6.0
 editor_draw_screen = false
 editor_draw_limits = true
@@ -762,6 +762,12 @@ __meta__ = {
 [node name="IFrameTimer" type="Timer" parent="."]
 wait_time = 1.5
 
+[node name="CeilingDetector" type="RayCast2D" parent="."]
+position = Vector2( -7.6509, -9.30898 )
+rotation = 3.14159
+cast_to = Vector2( 0, 11 )
+collision_mask = 8
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
@@ -775,7 +781,8 @@ position = Vector2( 1.08069, 0 )
 script = ExtResource( 52 )
 
 [node name="Tween" type="Tween" parent="ScreenShake"]
+
 [connection signal="input_event" from="." to="." method="_on_Samus__power_input_event"]
-[connection signal="animation_finished" from="SpriteRight" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="animation_finished" from="SpriteLeft" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="animation_finished" from="SpriteRight" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="IFrameTimer" to="." method="_on_IFrameTimer_timeout"]

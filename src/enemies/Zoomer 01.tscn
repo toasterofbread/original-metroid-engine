@@ -37,11 +37,6 @@ region = Rect2( 112, 0, 28, 17 )
 
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
-"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 12 ), ExtResource( 13 ) ],
-"loop": true,
-"name": "zoomer 01",
-"speed": 15.0
-}, {
 "frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 11 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
 "loop": false,
 "name": "death",
@@ -51,6 +46,11 @@ animations = [ {
 "loop": true,
 "name": "geemer",
 "speed": 11.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 12 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "zoomer 01",
+"speed": 15.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=7]
@@ -64,7 +64,6 @@ script = ExtResource( 3 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 6 )
 animation = "zoomer 01"
-frame = 3
 playing = true
 
 [node name="SideRayCaster" type="RayCast2D" parent="."]
